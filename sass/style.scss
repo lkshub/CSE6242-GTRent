@@ -5,7 +5,7 @@ $grid-gutter-width: 40px !default;
 $border-radius-base:  4px !default;
 $padding-base-vertical: 14px !default;
 
-$brand-primary: #ff3b30 !default;
+$brand-primary: #1fb5f6 !default;
 $brand-secondary: #1fb5f6 !default; 
 
 
@@ -137,7 +137,7 @@ a {
 	color: $brand-primary;
 	@include transition(.5s);
 	&:hover, &:active, &:focus {
-		color: $brand-primary;
+		color: #1fb5f6;
 		outline: none;
 	}
 }
@@ -260,7 +260,7 @@ h1, h2, h3, h4, h5, h6 {
 							visibility: visible;
 							-webkit-transform: scaleX(1);
 							transform: scaleX(1);
-							background-color: $brand-primary;
+							background-color: #1fb5f6;
 							@media screen and (max-width: $screen-xs) {
 								background-color: transparent;
 								
@@ -331,7 +331,7 @@ h1, h2, h3, h4, h5, h6 {
 				}
 				&.active {
 					a {
-						color: $brand-primary!important;	
+						color: #1fb5f6 !important;	
 						@media screen and (max-width: $screen-sm) {
 							color: $brand-primary!important;	
 						}
@@ -341,7 +341,7 @@ h1, h2, h3, h4, h5, h6 {
 								visibility: visible;
 								-webkit-transform: scaleX(1);
 								transform: scaleX(1);
-								background-color: $brand-primary;
+								background-color: #1fb5f6;
 								@media screen and (max-width: $screen-sm) {
 									background-color: transparent;
 								}
