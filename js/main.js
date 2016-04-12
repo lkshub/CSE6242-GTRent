@@ -601,6 +601,24 @@
 		}
 	};
 
+	var filterToggle = function(){
+		$("#filterTag img").click(function(){
+			console.log("clicked!")
+			if ($(this).hasClass('clicked')){
+				$("#filter").animate({
+					width:'0px'
+				},1000)
+				$(this).removeClass('clicked')
+			}
+			else{
+				$(this).addClass('clicked')
+				$("#filter").animate({
+					width:'200px'
+				},1000)
+			}
+		})
+	}
+
 
 	// Document on load.
 	$(function(){
@@ -611,6 +629,8 @@
 		windowScroll();
 		navigationSection();
 		testimonialCarousel();
+
+		filterToggle()
 		
 		// Animations
 		homeAnimate();
