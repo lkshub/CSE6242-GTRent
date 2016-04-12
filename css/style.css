@@ -6,7 +6,7 @@
   font-style: normal; }
 /* =======================================================
 *
-* 	Template Style 
+* 	Template Style
 *	Edit this section
 *
 * ======================================================= */
@@ -39,6 +39,103 @@ h1, h2, h3, h4, h5, h6 {
   font-family: "PT Sans", Arial, serif;
   font-weight: 400;
   margin: 0 0 30px 0; }
+
+/* Search Box Style Start */
+/* Explore Page Search Box*/
+.controls1 {
+  margin-top: 10px;
+  border: 1px solid transparent;
+  border-radius: 2px 0 0 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  height: 36px;
+  outline: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+#pac-input1 {
+  background-color: #fff;
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 300;
+  margin-left: 12px;
+  padding: 0 11px 0 13px;
+  text-overflow: ellipsis;
+  width: 300px;
+}
+/* Home Page Search Box*/
+.controls {
+  margin-top: 10px;
+  border: 1px solid transparent;
+  border-radius: 2px 0 0 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  height: 60px;
+  width: 800px;
+  outline: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  position: relative;
+  left: -180px;
+}
+
+#pac-input {
+  background-color: #fff;
+  font-family: Roboto;
+  font-size: 30px;
+  font-weight: 300;
+  margin-left: 12px;
+  padding: 0 11px 0 13px;
+  text-overflow: ellipsis;
+}
+
+#pac-input:focus {
+  border-color: #4d90fe;
+}
+
+.pac-container {
+  font-family: Roboto;
+}
+
+#type-selector {
+  color: #fff;
+  background-color: #4d90fe;
+  padding: 5px 11px 0px 11px;
+}
+
+#type-selector label {
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 300;
+}
+#target {
+  width: 345px;
+}
+/* Search Box Style End */
+
+/* Home Page Find Button Start*/
+.button {
+  background-color:#50c5f8;
+  -moz-border-radius:28px;
+  -webkit-border-radius:28px;
+  border-radius:28px;
+  border:1px solid #337AB7;
+  display:inline-block;
+  cursor:pointer;
+  color:#ffffff;
+  font-family:Arial;
+  font-size:35px;
+  padding:1px 15px;
+  text-decoration:none;
+  text-shadow:0px 1px 0px #2f6627;
+}
+.button:hover {
+  background-color:#535659;
+}
+.button:active {
+  position:relative;
+  left: 10px;
+}
+/* Home Page Find Button End*/
 
 ::-webkit-selection {
   color: #fff;
