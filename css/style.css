@@ -1027,12 +1027,10 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: -4px 0px 4px #909090,2px 2px 4px #909090;
   overflow: hidden;
 }
-#filter  a {
+#apply  a {
     position:absolute;
     bottom:10px;
     border: 2px solid #1fb5f6;
-    padding: 5px 10px 3px 10px;
-    margin: 0px 0 0 0px;
     -webkit-border-radius: 30px;
     -moz-border-radius: 30px;
     -ms-border-radius: 30px;
@@ -1049,6 +1047,10 @@ h1, h2, h3, h4, h5, h6 {
 #filterTag img{
   height: 100%;
   width: 100%;
+}
+#apply{
+  height:40%;
+  overflow: hidden;
 }
 
 .selectHeader{
