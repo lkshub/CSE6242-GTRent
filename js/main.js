@@ -636,7 +636,7 @@
 		$(".selectHeader").click(function(){
 			console.log("clicked!")
 			if ($(this).hasClass('choosed')){
-				$(this).next(".selectDetail").animate({
+				$(this).siblings(".selectDetail").animate({
 					height:'0px',
 					opacity: 0,
 				},800)
@@ -650,7 +650,7 @@
 				},800);
 				$('.selectHeader').filter(".choosed").removeClass('choosed');
 				$(this).addClass('choosed')
-				$(this).next(".selectDetail").animate({
+				$(this).siblings(".selectDetail").animate({
 					height:'50px',
 					opacity: 1,
 				},500);
