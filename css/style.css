@@ -1028,12 +1028,17 @@ h1, h2, h3, h4, h5, h6 {
 }
 #apply  a {
     position:absolute;
-    bottom:10px;
+    bottom: 15px;
+    left:70px;
+    padding-left: 5px;
+    padding-right: 5px;
     border: 2px solid #1fb5f6;
     -webkit-border-radius: 30px;
     -moz-border-radius: 30px;
     -ms-border-radius: 30px;
-    border-radius: 30px; }
+    border-radius: 30px; 
+    color: black;
+  }
 #filterTag{
   float:right;
   background: white;
@@ -1050,6 +1055,7 @@ h1, h2, h3, h4, h5, h6 {
 #apply{
   height:40%;
   overflow: hidden;
+  position:relative;
 }
 
 .selectHeader{
