@@ -1036,24 +1036,25 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: -4px 0 4px #909090;
 }
 #filterTag img{
-  height: 50px;
-  width: 50px;
-}
-
-.selectWay{
-  width: 100%;
-  height: 33.3%;
-
-}
-.selectWay img{
-  width:100%;
   height: 100%;
+  width: 100%;
+}
+
+#selectWay{
+  height: 10%;
+  overflow:hidden;
+}
+#selectWay img{
+ height: 80%;
+ margin: 10px;
 }
 
 .clicked{
   color: black;
 }
-
+.choosed{
+  background: lightgrey;s
+}
 
 .mfp-with-zoom .mfp-container,
 .mfp-with-zoom.mfp-bg {
