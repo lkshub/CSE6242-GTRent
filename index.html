@@ -103,6 +103,7 @@
 					<h2 class="to-animate">Explore Your Dream Home</h2>
 					<div class="row">
 <<<<<<< HEAD
+<<<<<<< HEAD
 						<!-- search box -->
 						<div style="border:1px solid #ccc; background:#e5e5e5; padding:10px;">
 						<input id="pac-input1" class="controls1" type="text" placeholder="Enter your home address">
@@ -111,6 +112,19 @@
 						<div id="filter" ></div>
 						<div id="filterTag" >
 							<img src="./images/filter.png">
+>>>>>>> upstream/master
+=======
+						<div id="filter" >
+							<div title = "Driving" data-toggle="tooltip" class="selectWay">
+							</div>
+							<div title = "Walking" data-toggle="tooltip"class="selectWay" >
+							</div>
+							<div title = "Transit" data-toggle="tooltip" class="selectWay">
+								<img  src="./images/transit.png">
+							</div>
+						</div>
+						<div id="filterTag" >
+							<img title="Filter" data-toggle="tooltip" data-placement="left" src="./images/filter.png">
 >>>>>>> upstream/master
 						</div>
 						<div id="map" class="fh5co-map"></div>
@@ -561,6 +575,11 @@
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTYfIgWA-BGuC1obnERZv8rm1p-Jnx6oY&libraries=places&callback=initAutocomplete" async defer></script>
 	<script src="js/initAutocomplete.js"></script>
 	<!-- Main JS (Do not remove) -->
+	<script>
+		$(document).ready(function(){
+		    $('[data-toggle="tooltip"]').tooltip(); 
+		});
+	</script>
 	<script src="js/main.js"></script>
 
 	</body>
