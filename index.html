@@ -86,7 +86,7 @@
 							<h1 class="to-animate"> Yellow Jacket!</h1>
 							<!-- Home page search box -->
 							<div style="solid #ccc; background-color: transparent; padding:0px;">
-							<input id="pac-input" class="controls" type="text" placeholder="Enter your home address">
+							<input id="pac-input" class="controls" type="text" placeholder="Enter your future home address">
 <!-- 							<input class="button" type="submit" value="find" onClick="initAutocomplete.js">
  -->							</div>
 						</div>
@@ -104,10 +104,18 @@
 					<div class="row">
 
 						<div id="filter" >
-							<div id="selectWay">
-							<img title = "Driving" data-toggle="tooltip" class="choosed" src="./images/car.png">
-							<img title = "Walking" data-toggle="tooltip" src="./images/walk.png">
-							<img title = "Transit" data-toggle="tooltip" src="./images/transit.png">
+							<div id="commutingWay"class="selectCommute">
+								<img title = "Driving" data-toggle="tooltip" class="choosed" data-placement="right"src="./images/car.png">
+								<img title = "Walking" data-toggle="tooltip" data-placement="left"src="./images/walk.png">
+								<img title = "Transit" data-toggle="tooltip" data-placement="left" src="./images/transit.png">
+							</div>
+							<div id="commutingTime" class="selectContainer">
+								<div class="selectHeader">Commuting Time</div>
+								<div class="selectDetail">time</div>
+							</div>
+							<div id="lifeConvenience" class="selectContainer">
+								<div class="selectHeader">Life Convenience</div>
+								<div class="selectDetail">Life</div>
 							</div>
 						</div>
 						<div id="filterTag" >

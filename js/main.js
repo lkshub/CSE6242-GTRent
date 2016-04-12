@@ -608,7 +608,7 @@
 				$("#filter").animate({
 					width:'0px',
 					opacity: 0,
-				},1000)
+				},800)
 				$(this).removeClass('clicked')
 
 			}
@@ -617,16 +617,43 @@
 				$("#filter").animate({
 					width:'200px',
 					opacity: 1,
-				},1000)
+				},500)
 			}
 		})
 	}
 
 	var commutingStyle=function(){
-		$("#selectWay img").click(function(){
+		$("#commutingWay img").click(function(){
 			if (! $(this).hasClass("choosed")){
-				$("#selectWay").children().removeClass("choosed");
+				$("#commutingWay").children().removeClass("choosed");
 				$(this).addClass("choosed");
+			}
+		})
+	}
+
+
+	var selectDetailToggle = function(){
+		$(".selectHeader").click(function(){
+			console.log("clicked!")
+			if ($(this).hasClass('choosed')){
+				$(this).next(".selectDetail").animate({
+					height:'0px',
+					opacity: 0,
+				},800)
+				$(this).removeClass('choosed')
+
+			}
+			else{
+				$('.selectHeader').filter(".choosed").next().animate({
+					height:'0px',
+					opacity: 0,
+				},800);
+				$('.selectHeader').filter(".choosed").removeClass('choosed');
+				$(this).addClass('choosed')
+				$(this).next(".selectDetail").animate({
+					height:'50px',
+					opacity: 1,
+				},500);
 			}
 		})
 	}
@@ -644,7 +671,7 @@
 
 		filterToggle();
 		commutingStyle();
-		
+		selectDetailToggle();
 		// Animations
 		homeAnimate();
 		exploreAnimate();

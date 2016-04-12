@@ -1025,6 +1025,7 @@ h1, h2, h3, h4, h5, h6 {
   height:500px;
   width:0px;
   box-shadow: -4px 0px 4px #909090,2px 2px 4px #909090;
+  overflow: hidden;
 }
 #filterTag{
   float:right;
@@ -1040,20 +1041,52 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
 }
 
-#selectWay{
-  height: 10%;
+.selectHeader{
+  height: 50px;
   overflow:hidden;
+  margin: 0;
+  line-height: 50px;
+  border-bottom: 1px solid lightgrey;
+  vertical-align: center;
+  font-family: "PT Sans", Arial, serif;
+  font-weight: 200;
+  font-size: 20px;
 }
-#selectWay img{
+.selectCommute{
+  height: 50px;
+  overflow:hidden;
+  margin: 0;
+  line-height: 50px;
+  border-bottom: 1px solid lightgrey;
+  vertical-align: center;
+  font-family: "PT Sans", Arial, serif;
+  font-weight: 200;
+  font-size: 20px;
+}
+.selectCommute img{
  height: 80%;
- margin: 10px;
+ margin: auto;
+ margin-right: 10px;
+ margin-right: 10px;
+ vertical-align:middle;
 }
-
+.selectDetail{
+  height:0;
+  width:100%;
+  overflow:hidden;
+  margin: 0;
+  line-height: 50px;
+  border-bottom: 1px solid lightgrey;
+  vertical-align: center;
+  font-family: "PT Sans", Arial, serif;
+  font-weight: 200;
+  font-size: 20px;
+}
 .clicked{
   color: black;
 }
 .choosed{
-  background: lightgrey;s
+  background: lightgrey;
 }
 
 .mfp-with-zoom .mfp-container,
