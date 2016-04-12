@@ -609,6 +609,7 @@
 					width:'0px'
 				},1000)
 				$(this).removeClass('clicked')
+
 			}
 			else{
 				$(this).addClass('clicked')
