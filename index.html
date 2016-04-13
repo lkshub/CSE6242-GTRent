@@ -110,35 +110,51 @@
 								<img title = "Transit" data-toggle="tooltip" data-placement="left" src="./images/transit.png">
 							</div>
 							<div id="commutingTime" class="selectContainer">
-								<div title = "Time it takes to commute" data-toggle="tooltip"class="selectHeader">Commuting Time</div>
+								<div title = "Time it takes to commute" data-toggle="tooltip"class="selectHeader"><h3>Commuting Time</h3> <p>0 - 15 minutes</p></div>
 								<div class="selectDetail">time</div>
 							</div>
 							<div id="floorPlan" class="selectContainer">
-								<div title = "How many beds do you want?" data-toggle="tooltip"  class="selectHeader">Floor Plan</div>
+								<div title = "How many beds do you want?" data-toggle="tooltip"  class="selectHeader"><h3>Floor Plan</h3> <p>n b n b</p></div>
 								<div class="selectDetail">floor plans</div>
 							</div>
 							<div id="priceRange" class="selectContainer">
-								<div title = "Average price for a bed" data-toggle="tooltip"class="selectHeader">Range of Price</div>
-								<div class="selectDetail">price</div>
+								<div title = "Average price for a bed" data-toggle="tooltip"class="selectHeader"><h3>Range of Price</h3> <p>$0 - $1000</p></div>
+								<div class="selectDetail">
+									<div class="priceBox" id="priceBoxMin"><input class="text commaFormat" maxlength="5" size="4" name="rental-payment-min" id="rental-payment-min" type="text" placeholder="0"></div>
+									<div class="dash">&nbsp;</div>
+									<div class="priceBox" id="priceBoxMax"><input class="text commaFormat" maxlength="5" size="4" name="rental-payment-max" id="rental-payment-max" type="text" placeholder="1000"></div>
+								</div>
+
 							</div>
 							<div id="propertyType" class="selectContainer">
-								<div title = "Apartment,house,or else?" data-toggle="tooltip"  class="selectHeader">Property Type</div>
-								<div class="selectDetail">
-									<input type="checkbox" id="Apartment" > <label for="Apartment">Apartment</label>
+								<div title = "Apartment,house,or else?" data-toggle="tooltip" id="typeHeader" class="selectHeader"><h3>Property Type</h3>
+								<p>Apartment,House,Condo,Townhouse</p>
 								</div>
 								<div class="selectDetail">
-									<input type="checkbox" id="House" > <label for="House">House</label>
+									<input type="checkbox" id="Apartment" checked="True" > <label for="Apartment">Apartment</label>
 								</div>
 								<div class="selectDetail">
-									<input type="checkbox" id="Condo" > <label for="Condo">Condo</label>
+									<input type="checkbox" id="House" checked="True" > <label for="House">House</label>
 								</div>
 								<div class="selectDetail">
-									<input type="checkbox" id="Townhouse" > <label for="Townhouse">Townhouse</label>
+									<input type="checkbox" id="Condo"checked="True"  > <label for="Condo">Condo</label>
+								</div>
+								<div class="selectDetail">
+									<input type="checkbox" id="Townhouse" checked="True" > <label for="Townhouse">Townhouse</label>
 								</div>
 							</div>
 							<div id="lifeConvenience" class="selectContainer">
-								<div title = "Want do you want around you?" data-toggle="tooltip" class="selectHeader">Life Convenience</div>
-								<div class="selectDetail">Life</div>
+								<div title = "Want do you want around you?" data-toggle="tooltip" class="selectHeader"><h3>Life Convenience</h3>
+									<p>Food</p></div>
+								<div class="selectDetail">
+									<input type="checkbox" id="Food" > <label for="Food">Food</label>
+								</div>
+								<div class="selectDetail">
+									<input type="checkbox" id="Gas" > <label for="House">Gas</label>
+								</div>
+								<div class="selectDetail">
+									<input type="checkbox" id="House2" > <label for="House2">House</label>
+								</div>
 							</div>
 							<div id="apply" >
 								<a href="#">Apply</a>

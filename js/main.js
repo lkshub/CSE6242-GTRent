@@ -641,10 +641,11 @@
 					opacity: 0,
 				},800)
 				$(this).removeClass('choosed')
+				var label="";
 
 			}
 			else{
-				$('.selectHeader').filter(".choosed").next().animate({
+				$('.selectHeader').filter(".choosed").siblings(".selectDetail").animate({
 					height:'0px',
 					opacity: 0,
 				},800);
