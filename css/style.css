@@ -1135,6 +1135,26 @@ h1, h2, h3, h4, h5, h6 {
 #typeHeader p{
   font-size: 10px;
 }
+
+#sliderTime{
+  width : 180px;
+  height: 40px;
+  padding: 2px;
+  left:3px;
+  right:1px;
+  overflow:visible ;
+  position:relative;
+  display: block;
+  border:0px;
+}
+.d3-slider-range{
+  left:0% !important;
+  right: 80%;
+  width: 100%!important;
+  background:transparent!important;
+  border-bottom: 1px solid #aaa;
+}
+
 .priceBox{
   line-height:normal;
   text-align: center;
