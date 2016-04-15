@@ -1032,7 +1032,7 @@ h1, h2, h3, h4, h5, h6 {
   background: white;
   position:relative;
   z-index: 1;
-  height:0px;
+  height:20px;
   width:250px;
   box-shadow: 2px 0px 4px #909090,-2px 0px 4px #909090;
   overflow-y: scroll;

@@ -705,45 +705,38 @@
 	var applyFilter = function(){
 		$('#apply').click(function(event) {
 			if ($('#content').hasClass('hidden2')){
-				$("#content").animate({
-					height:'500px',
-					opacity: 1,
-				},800)
-				$("#content").removeClass('hidden2')
+				showContent();
 				$("#filter").animate({
 					width:'0px',
 					opacity: 0,
 				},800)
 				$("#filterTag img").removeClass('clicked')
 
-				//add articles to the content!
-
-
-
-
+				
 			}
-			else{
-				$('#content').addClass('hidden2');
-				$("#content").animate({
-					height:'10px',
-					opacity: 1,
-				},500)
-				console.log("down");
-			}
+			//add articles to the content
+
+
 		});
 		
 	}
-	var resumeContent = function(){
-		$('#content').click(function(){
-			if ($(this).hasClass('hidden2')){
-				$("#content").animate({
+
+	var hideContent=function(){
+
+		$("#content").animate({
+			height:'20px',
+			opacity: 1,
+		},500)
+		$('#content').addClass('hidden2');
+	}
+
+	var showContent = function(){
+		$("#content").animate({
 					height:'500px',
 					width:"250px",
 					opacity: 1,
 				},800)
-				$("#content").removeClass('hidden2')
-			}
-		})
+		$("#content").removeClass('hidden2')
 	}
 
 	// Document on load.
@@ -760,7 +753,15 @@
 		commutingStyle();
 		selectDetailToggle();
 		applyFilter();
-		resumeContent();
+		//resumeContent();
+		$("#hideContent").click(function(){
+			if (! $("#content").hasClass('hidden2')){
+				hideContent()
+			}
+			else{
+				showContent();
+			}
+		});
 		// Animations
 		homeAnimate();
 		exploreAnimate();
