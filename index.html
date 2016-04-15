@@ -115,21 +115,47 @@
 								<div class="selectDetail"><div id="sliderTime"></div></div>
 							</div>
 							<div id="floorPlan" class="selectContainer">
-								<div title = "How many beds do you want?" data-toggle="tooltip"  class="selectHeader"><h3>Floor Plan</h3> <p>n b n b</p></div>
-								<div class="selectDetail">floor plans</div>
+								<div title = "How many beds do you want?" data-toggle="tooltip"  class="selectHeader"><h3>Floor Plan</h3> <p><span id="bed-show">1</span> b <span id="bath-show">1.0</span> b</p></div>
+								<div class="selectDetail">
+									<select id = "bed">
+										<option>1</option>
+										<option>2</option>
+										<option>3</option>
+										<option>4</option>
+										<option>5</option>
+										<option>6</option>
+									</select>
+									<span>Beds</span>
+									<select id = "bath">
+										<option>1.0</option>
+										<option>1.5</option>
+										<option>2.0</option>
+										<option>2.5</option>
+										<option>3.0</option>
+										<option>3.5</option>
+										<option>4.0</option>
+										<option>4.5</option>
+										<option>5.0</option>
+										<option>5.5</option>
+										<option>6.0</option>
+										<option>7.5</option>
+									</select>
+									<span>Baths</span>
+								</div>
 							</div>
 							<div id="priceRange" class="selectContainer">
-								<div title = "Average price for a bed" data-toggle="tooltip"class="selectHeader"><h3>Range of Price</h3> <p>$0 - $1000</p></div>
+								<div title = "Average price for a bed" data-toggle="tooltip"class="selectHeader"><h3>Range of Price</h3> <p>$<span id="priceMin-show">0</span> - $<span id="priceMax-show">1000</span></p></div>
 								<div class="selectDetail">
-									<div class="priceBox" id="priceBoxMin"><input class="text commaFormat" maxlength="5" size="4" name="rental-payment-min" id="rental-payment-min" type="text" placeholder="0"></div>
-									<div class="dash">&nbsp;</div>
-									<div class="priceBox" id="priceBoxMax"><input class="text commaFormat" maxlength="5" size="4" name="rental-payment-max" id="rental-payment-max" type="text" placeholder="1000"></div>
+									<span>Min</span>
+									<div class="priceBox" id="priceBoxMin"><input class="text commaFormat" maxlength="5" size="4" name="rental-payment-min" id="rental-payment-min" type="text" value="0" placeholder="0"></div>
+									<span>Max</span>
+									<div class="priceBox" id="priceBoxMax"><input class="text commaFormat" maxlength="5" size="4" name="rental-payment-max" id="rental-payment-max" type="text" value="1000" placeholder="1000"></div>
 								</div>
 
 							</div>
 							<div id="propertyType" class="selectContainer">
 								<div title = "Apartment,house,or else?" data-toggle="tooltip" id="typeHeader" class="selectHeader"><h3>Property Type</h3>
-								<p>Apartment,House,Condo,Townhouse</p>
+								<p id="propertyType-show">Apartment,House,Condo,Townhouse</p>
 								</div>
 								<div class="selectDetail">
 									<input type="checkbox" id="Apartment" checked="True" > <label for="Apartment">Apartment</label>
@@ -146,7 +172,7 @@
 							</div>
 							<div id="lifeConvenience" class="selectContainer">
 								<div title = "Want do you want around you?" data-toggle="tooltip" class="selectHeader"><h3>Life Convenience</h3>
-									<p>Food</p></div>
+									<p id="lifeConvenience-show">Food</p></div>
 								<div class="selectDetail">
 									<input type="checkbox" id="Food" checked = "True"> <label for="Food">Food</label>
 								</div>
@@ -154,7 +180,7 @@
 									<input type="checkbox" id="Gas" > <label for="House">Gas</label>
 								</div>
 								<div class="selectDetail">
-									<input type="checkbox" id="House2" > <label for="House2">House</label>
+									<input type="checkbox" id="Entertainment" > <label for="Entertainment">Entertainment</label>
 								</div>
 							</div>
 							<div id="apply" >

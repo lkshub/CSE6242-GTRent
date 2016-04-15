@@ -634,15 +634,16 @@
 
 	var selectDetailToggle = function(){
 		$(".selectHeader").click(function(){
+			updateDetails();
 			console.log("clicked!")
 			if ($(this).hasClass('choosed')){
 				$(this).siblings(".selectDetail").animate({
 					height:'0px',
 					opacity: 0,
 				},800)
+
 				$(this).removeClass('choosed')
 				var label="";
-
 			}
 			else{
 				$('.selectHeader').filter(".choosed").siblings(".selectDetail").animate({
@@ -657,6 +658,38 @@
 				},500);
 			}
 		})
+	var updateDetails = function(){
+		$("#bed-show").text($("#bed").val())
+		$("#bath-show").text($("#bath").val())
+		$("#priceMin-show").text($("#rental-payment-min").val());
+		$("#priceMax-show").text($("#rental-payment-max").val());
+		var types = ""
+		if ($("#Apartment").is(':checked')){
+			types = types + "Apartment ";
+		}
+		if ($("#House").is(':checked')){
+			types = types + "House ";
+		}
+		if ($("#Condo").is(':checked')){
+			types = types + "Condo ";
+		}
+		if ($("#Townhouse").is(':checked')){
+			types = types + "Townhouse ";
+		}
+		$('#propertyType-show').text(types);
+		var life = ""
+		if ($("#Food").is(':checked')){
+			life = life + "Food ";
+		}
+		if ($("#Gas").is(':checked')){
+			life = life + "Gas ";
+		}
+		if ($("#Entertainment").is(':checked')){
+			life = life + "Entertainment ";
+		}
+		$('#lifeConvenience-show').text(life);
+		
+	}
 	}
 
 
@@ -673,6 +706,7 @@
 		filterToggle();
 		commutingStyle();
 		selectDetailToggle();
+
 		// Animations
 		homeAnimate();
 		exploreAnimate();
