@@ -603,7 +603,7 @@
 
 	var filterToggle = function(){
 		$("#filterTag img").click(function(){
-			console.log("clicked!")
+			//console.log("clicked!")
 			if ($(this).hasClass('clicked')){
 				$("#filter").animate({
 					width:'0px',
@@ -621,6 +621,8 @@
 			}
 		})
 	}
+
+
 
 	var commutingStyle=function(){
 		$("#commutingWay img").click(function(){
@@ -658,6 +660,11 @@
 				},500);
 			}
 		})
+	
+	
+
+	}
+
 	var updateDetails = function(){
 		$("#bed-show").text($("#bed").val())
 		$("#bath-show").text($("#bath").val())
@@ -690,8 +697,54 @@
 		$('#lifeConvenience-show').text(life);
 		
 	}
+
+	var addContent = function(){
+		
 	}
 
+	var applyFilter = function(){
+		$('#apply').click(function(event) {
+			if ($('#content').hasClass('hidden2')){
+				$("#content").animate({
+					height:'500px',
+					opacity: 1,
+				},800)
+				$("#content").removeClass('hidden2')
+				$("#filter").animate({
+					width:'0px',
+					opacity: 0,
+				},800)
+				$("#filterTag img").removeClass('clicked')
+
+				//add articles to the content!
+
+
+
+
+			}
+			else{
+				$('#content').addClass('hidden2');
+				$("#content").animate({
+					height:'10px',
+					opacity: 1,
+				},500)
+				console.log("down");
+			}
+		});
+		
+	}
+	var resumeContent = function(){
+		$('#content').click(function(){
+			if ($(this).hasClass('hidden2')){
+				$("#content").animate({
+					height:'500px',
+					width:"250px",
+					opacity: 1,
+				},800)
+				$("#content").removeClass('hidden2')
+			}
+		})
+	}
 
 	// Document on load.
 	$(function(){
@@ -706,7 +759,8 @@
 		filterToggle();
 		commutingStyle();
 		selectDetailToggle();
-
+		applyFilter();
+		resumeContent();
 		// Animations
 		homeAnimate();
 		exploreAnimate();
@@ -719,6 +773,7 @@
 		faqAnimate();
 		trustedAnimate();
 		footerAnimate();
+
 		
 
 	});

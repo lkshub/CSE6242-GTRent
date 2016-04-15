@@ -1032,10 +1032,12 @@ h1, h2, h3, h4, h5, h6 {
   background: white;
   position:relative;
   z-index: 1;
-  height:500px;
-  width:0px;
-  box-shadow: -4px 0px 4px #909090;
-  overflow: scroll;
+  height:0px;
+  width:250px;
+  box-shadow: 2px 0px 4px #909090,-2px 0px 4px #909090;
+  overflow-y: scroll;
+  overflow-x: hidden; 
+  z-index: 1;
 }
 
 #apply  a {
@@ -1049,7 +1051,6 @@ h1, h2, h3, h4, h5, h6 {
     -moz-border-radius: 30px;
     -ms-border-radius: 30px;
     border-radius: 30px; 
-    color: black;
   }
 #filterTag{
   float:right;
@@ -1180,6 +1181,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 .clicked{
   color: black;
+}
+.hidden2{
 }
 .choosed{
   background: #f2eada;
