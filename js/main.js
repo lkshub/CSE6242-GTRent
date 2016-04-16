@@ -733,7 +733,7 @@
 	var showContent = function(){
 		$("#content").animate({
 					height:'500px',
-					width:"250px",
+					width:"300px",
 					opacity: 1,
 				},800)
 		$("#content").removeClass('hidden2')

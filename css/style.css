@@ -737,7 +737,7 @@ h1, h2, h3, h4, h5, h6 {
       display: block;
       width: 50px;
       height: 2px;
-      background: #1fb5f6;
+      
       left: 50%;
       margin-left: -25px;
       bottom: 0; }
@@ -1033,13 +1033,41 @@ h1, h2, h3, h4, h5, h6 {
   position:relative;
   z-index: 1;
   height:20px;
-  width:250px;
+  width:300px;
   box-shadow: 2px 0px 4px #909090,-2px 0px 4px #909090;
   overflow-y: scroll;
   overflow-x: hidden; 
   z-index: 1;
 }
-
+#content article{
+  width: 100%;
+  height: auto;
+  border-bottom: 1px solid lightgrey;
+  padding-left: 8px;
+}
+#content article h3{
+  height: 20px ;
+  font-size: 20px !important;
+  background: white !important;
+  margin-top: 5px;
+  margin-bottom: 0px;
+  text-align: left;
+}
+#content article p{
+  text-align: left;
+  font-size: 15px;
+  margin: 0px;
+}
+#content article table{
+  margin: 5px;
+  width: 90%;
+  margin-bottom: 10px;
+}
+#content article table tr,th{
+  font-size: 13px;
+  font-weight: 100;
+  border-bottom: 1px solid lightgrey;
+}
 #apply  a {
     position:absolute;
     bottom: 15px;
