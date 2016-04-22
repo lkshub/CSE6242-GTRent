@@ -698,7 +698,7 @@
 		
 	}
 
-	var addContent = function(){
+	var addContent = function(maps){
 		
 	}
 
@@ -711,16 +711,34 @@
 					opacity: 0,
 				},800)
 				$("#filterTag img").removeClass('clicked')
-
-				
 			}
-			//add articles to the content
-
+			var commutingStyle =
+			var commutingTime = 
+			var floorPlan = 
+			var priceRange = 
+			var propertyType = 
+			var lifeCon = 
+			var maps = searchForDetail(commutingStyle,commutingTime,floorPlan,priceRange,propertyType,lifeCon);
+			addContent(maps);
 
 		});
 		
 	}
-
+	var searchForDetail = function(commutingStyle,commutingTime,floorPlan,priceRange,propertyType,lifeCon){
+		var maps={};
+		var xhttp = new XMLHttpRequest();
+  		xhttp.onreadystatechange = function() {
+    	if (xhttp.readyState == 4 && xhttp.status == 200) {
+      		document.getElementById("content-1").innerHTML = xhttp.responseText;
+      		console.log(xhttp.responseText);
+    		}
+  		};
+	  	xhttp.open("POST", "", true);
+	 	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	  	xhttp.send("id=1");
+		
+		return maps
+	}
 	var hideContent=function(){
 
 		$("#content").animate({
