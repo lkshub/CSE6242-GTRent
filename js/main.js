@@ -623,13 +623,11 @@
 	}
 
 
-
 	var commutingStyle=function(){
 		$("#commutingWay img").click(function(){
 			if (! $(this).hasClass("choosed")){
 				$("#commutingWay").children().removeClass("choosed");
 				$(this).addClass("choosed");
-				// alert($(this).attr("id"))
 			}
 		})
 	}
@@ -664,13 +662,16 @@
 	}
 
 	var updateDetails = function(){
-		if ($("#commutingWay img").attr("class")=="choosed"){
-			alert($(this).attr("id"));
-			}
-
-
+		var commutingStyle = "Driving"; // "Driving is the first tab by default"
+		// $("#commutingWay img").click(function(){
+		// 	if (! $(this).hasClass("choosed")){
+		// 		$("#commutingWay").children().removeClass("choosed");
+		// 		$(this).addClass("choosed");
+		// 		commutingStyle = ($(this).attr("id"));
+		// 	}
+		// })
 		var commutingTime = new Array([$("#sliderMin").text(), $("#sliderMax").text()])
-		// alert(commutingTime)
+		// alert(commutingTime);
 
 		$("#bed-show").text($("#bed").val())
 		$("#bath-show").text($("#bath").val())
@@ -680,7 +681,7 @@
 		$("#priceMin-show").text($("#rental-payment-min").val());
 		$("#priceMax-show").text($("#rental-payment-max").val());
 		var priceRange = new Array([$("#rental-payment-min").val(), $("#rental-payment-max").val()])
-		// alert(priceRange)
+		// alert(priceRange);
 
 		var types = new Array()
 		if ($("#Apartment").is(':checked')){
@@ -697,7 +698,7 @@
 		}
 		$("#propertyType-show").text(types[0] + " " + types[1] + " " + types[2] + " " + types[3]);
 		var propertyType = types;
-		// alert(propertyType)
+		// alert(propertyType);
 
 		var life = new Array()
 		if ($("#Food").is(':checked')){
@@ -711,16 +712,8 @@
 		}
 		$('#lifeConvenience-show').text(life[0] + " " + life[1] + " " + life[2] + " " + life[3]);
 		var lifeCon = life;
-		// alert(lifeCon)
-		applyFilter(floorPlan, priceRange, types, lifeCon);
-	}
+		// alert(lifeCon);
 
-	var addContent = function(maps){
-		// var floorPlan = new Array($("#bed").val())
-		var bed = $("#bed").val();
-	}
-
-	var applyFilter = function(){
 		$('#apply').click(function(event) {
 			if ($('#content').hasClass('hidden2')){
 				showContent();
@@ -730,17 +723,39 @@
 				},800)
 				$("#filterTag img").removeClass('clicked')
 			}
-			// var commutingStyle =
-			// var commutingTime =
-			var floorPlan = new Array([$("#bed").val(), $("#bath").val()])
-			alert(floorPlan);
-			// var priceRange =
-			// var propertyType =
-			// var lifeCon =
+			alert(commutingStyle)
+			console.log();
 			var maps = searchForDetail(commutingStyle,commutingTime,floorPlan,priceRange,propertyType,lifeCon);
 			addContent(maps);
 		});
 	}
+
+	var addContent = function(maps){
+
+	}
+
+	// var applyFilter = function(commutingStyle, floorPlan, priceRange, types, propertyType, lifeCon){
+	// 	$('#apply').click(function(event) {
+	// 		if ($('#content').hasClass('hidden2')){
+	// 			showContent();
+	// 			$("#filter").animate({
+	// 				width:'0px',
+	// 				opacity: 0,
+	// 			},800)
+	// 			$("#filterTag img").removeClass('clicked')
+	// 		}
+	// 		// var commutingStyle =
+	// 		var commutingTime = commutingTime
+	// 		var floorPlan =floorPlan
+	// 		// alert(floorPlan);
+	// 		var priceRange = priceRange
+	// 		// var propertyType =
+	// 		var lifeCon = life
+	// 		alert(life)
+	// 		var maps = searchForDetail(commutingStyle,commutingTime,floorPlan,priceRange,propertyType,lifeCon);
+	// 		addContent(maps);
+	// 	});
+	// }
 	var searchForDetail = function(commutingStyle,commutingTime,floorPlan,priceRange,propertyType,lifeCon){
 		var maps={};
 		var xhttp = new XMLHttpRequest();
@@ -753,7 +768,7 @@
 	  	xhttp.open("POST", "", true);
 	 	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	  	xhttp.send("id=1");
-		
+
 		return maps
 	}
 	var hideContent=function(){
@@ -787,7 +802,7 @@
 		filterToggle();
 		commutingStyle();
 		selectDetailToggle();
-		applyFilter();
+		// applyFilter();
 		//resumeContent();
 		$("#hideContent").click(function(){
 			if (! $("#content").hasClass('hidden2')){
