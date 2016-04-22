@@ -629,6 +629,7 @@
 			if (! $(this).hasClass("choosed")){
 				$("#commutingWay").children().removeClass("choosed");
 				$(this).addClass("choosed");
+				// alert($(this).attr("id"))
 			}
 		})
 	}
@@ -660,46 +661,63 @@
 				},500);
 			}
 		})
-	
-	
-
 	}
 
 	var updateDetails = function(){
+		if ($("#commutingWay img").attr("class")=="choosed"){
+			alert($(this).attr("id"));
+			}
+
+
+		var commutingTime = new Array([$("#sliderMin").text(), $("#sliderMax").text()])
+		// alert(commutingTime)
+
 		$("#bed-show").text($("#bed").val())
 		$("#bath-show").text($("#bath").val())
+		var floorPlan = new Array([$("#bed").val(), $("#bath").val()])
+		// alert(floorPlan);
+
 		$("#priceMin-show").text($("#rental-payment-min").val());
 		$("#priceMax-show").text($("#rental-payment-max").val());
-		var types = ""
+		var priceRange = new Array([$("#rental-payment-min").val(), $("#rental-payment-max").val()])
+		// alert(priceRange)
+
+		var types = new Array()
 		if ($("#Apartment").is(':checked')){
-			types = types + "Apartment ";
+			types.push("Apartment");
 		}
 		if ($("#House").is(':checked')){
-			types = types + "House ";
+			types.push("House");
 		}
 		if ($("#Condo").is(':checked')){
-			types = types + "Condo ";
+			types.push("Condo");
 		}
 		if ($("#Townhouse").is(':checked')){
-			types = types + "Townhouse ";
+			types.push("Townhouse");
 		}
-		$('#propertyType-show').text(types);
-		var life = ""
+		$("#propertyType-show").text(types[0] + " " + types[1] + " " + types[2] + " " + types[3]);
+		var propertyType = types;
+		// alert(propertyType)
+
+		var life = new Array()
 		if ($("#Food").is(':checked')){
-			life = life + "Food ";
+			life.push("Food");
 		}
 		if ($("#Gas").is(':checked')){
-			life = life + "Gas ";
+			life.push("Gas");
 		}
 		if ($("#Entertainment").is(':checked')){
-			life = life + "Entertainment ";
+			life.push("Entertainment");
 		}
-		$('#lifeConvenience-show').text(life);
-		
+		$('#lifeConvenience-show').text(life[0] + " " + life[1] + " " + life[2] + " " + life[3]);
+		var lifeCon = life;
+		// alert(lifeCon)
+		applyFilter(floorPlan, priceRange, types, lifeCon);
 	}
 
 	var addContent = function(maps){
-		
+		// var floorPlan = new Array($("#bed").val())
+		var bed = $("#bed").val();
 	}
 
 	var applyFilter = function(){
@@ -712,17 +730,16 @@
 				},800)
 				$("#filterTag img").removeClass('clicked')
 			}
-			var commutingStyle =
-			var commutingTime = 
-			var floorPlan = 
-			var priceRange = 
-			var propertyType = 
-			var lifeCon = 
+			// var commutingStyle =
+			// var commutingTime =
+			var floorPlan = new Array([$("#bed").val(), $("#bath").val()])
+			alert(floorPlan);
+			// var priceRange =
+			// var propertyType =
+			// var lifeCon =
 			var maps = searchForDetail(commutingStyle,commutingTime,floorPlan,priceRange,propertyType,lifeCon);
 			addContent(maps);
-
 		});
-		
 	}
 	var searchForDetail = function(commutingStyle,commutingTime,floorPlan,priceRange,propertyType,lifeCon){
 		var maps={};
