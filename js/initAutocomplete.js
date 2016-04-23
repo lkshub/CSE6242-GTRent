@@ -5,10 +5,11 @@
 // This example requires the Places library. Include the libraries=places
 // parameter when you first load the API. For example:
 // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
-
+var map;
+var markers=[];
 function initAutocomplete() {
   var myLatlng = new google.maps.LatLng(33.778016, -84.399205);
-  var map = new google.maps.Map(document.getElementById('map'), {
+  map = new google.maps.Map(document.getElementById('map'), {
     center: myLatlng,
     zoom: 12,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -29,7 +30,6 @@ function initAutocomplete() {
     searchBox.setBounds(map.getBounds());
   });
 
-  var markers = [];
   // Listen for the event fired when the user selects a prediction and retrieve
   // more details for that place.
   searchBox.addListener('places_changed', function() {
@@ -74,3 +74,25 @@ function initAutocomplete() {
     map.fitBounds(bounds);
   });
 }
+function setMapOnAll(map) {
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
+  }
+}
+function clearMarker(){
+  setMapOnAll(null);
+  markers=[];
+}
+
+$('#apply').click(function(){
+  clearMarker();
+  var location  = new google.maps.LatLng(33.8601,-84.33292);
+  markers.push( new google.maps.Marker({
+        position: location, 
+        animation: google.maps.Animation.DROP
+        //map: map
+    })
+  );
+  setMapOnAll(map);
+  map.setCenter(location);
+})
