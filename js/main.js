@@ -632,6 +632,52 @@
 		})
 	}
 
+	var updateDetails = function(){
+	    var commutingStyle = "Driving"; // "Driving is the first tab by default"
+	    $("#commutingWay img").click(function(){
+	      if (! $(this).hasClass("choosed")){
+	        $("#commutingWay").children().removeClass("choosed");
+	        $(this).addClass("choosed");
+	        commutingStyle = ($(this).attr("id"));
+	      }
+	     })
+	    var commutingTime = new Array([$("#sliderMin").text(), $("#sliderMax").text()])
+	    // alert(commutingTime);
+
+	    $("#bed-show").text($("#bed").val())
+	    $("#bath-show").text($("#bath").val())
+
+	    $("#priceMin-show").text($("#rental-payment-min").val());
+	    $("#priceMax-show").text($("#rental-payment-max").val());
+
+	    var types = new Array()
+	    if ($("#Apartment").is(':checked')){
+	      types.push("Apartment");
+	    }
+	    if ($("#House").is(':checked')){
+	      types.push("House");
+	    }
+	    if ($("#Condo").is(':checked')){
+	      types.push("Condo");
+	    }
+	    if ($("#Townhouse").is(':checked')){
+	      types.push("Townhouse");
+	    }
+	    $("#propertyType-show").text(types);
+
+	    var life = new Array()
+	    if ($("#Food").is(':checked')){
+	      life.push("Food");
+	    }
+	    if ($("#Gas").is(':checked')){
+	      life.push("Gas");
+	    }
+	    if ($("#Entertainment").is(':checked')){
+	      life.push("Entertainment");
+	    }
+	    $('#lifeConvenience-show').text(life);
+
+  }
 
 	var selectDetailToggle = function(){
 		$(".selectHeader").click(function(){
@@ -661,155 +707,7 @@
 		})
 	}
 
-	var updateDetails = function(){
-		var commutingStyle = "Driving"; // "Driving is the first tab by default"
-		// $("#commutingWay img").click(function(){
-		// 	if (! $(this).hasClass("choosed")){
-		// 		$("#commutingWay").children().removeClass("choosed");
-		// 		$(this).addClass("choosed");
-		// 		commutingStyle = ($(this).attr("id"));
-		// 	}
-		// })
-		var commutingTime = new Array([$("#sliderMin").text(), $("#sliderMax").text()])
-		// alert(commutingTime);
-
-		$("#bed-show").text($("#bed").val())
-		$("#bath-show").text($("#bath").val())
-		var floorPlan = new Array([$("#bed").val(), $("#bath").val()])
-		// alert(floorPlan);
-
-		$("#priceMin-show").text($("#rental-payment-min").val());
-		$("#priceMax-show").text($("#rental-payment-max").val());
-		var priceRange = new Array([$("#rental-payment-min").val(), $("#rental-payment-max").val()])
-		// alert(priceRange);
-
-		var types = new Array()
-		if ($("#Apartment").is(':checked')){
-			types.push("Apartment");
-		}
-		if ($("#House").is(':checked')){
-			types.push("House");
-		}
-		if ($("#Condo").is(':checked')){
-			types.push("Condo");
-		}
-		if ($("#Townhouse").is(':checked')){
-			types.push("Townhouse");
-		}
-		$("#propertyType-show").text(types[0] + " " + types[1] + " " + types[2] + " " + types[3]);
-		var propertyType = types;
-		// alert(propertyType);
-
-		var life = new Array()
-		if ($("#Food").is(':checked')){
-			life.push("Food");
-		}
-		if ($("#Gas").is(':checked')){
-			life.push("Gas");
-		}
-		if ($("#Entertainment").is(':checked')){
-			life.push("Entertainment");
-		}
-		$('#lifeConvenience-show').text(life[0] + " " + life[1] + " " + life[2] + " " + life[3]);
-		var lifeCon = life;
-		// alert(lifeCon);
-
-		$('#apply').click(function(event) {
-			if ($('#content').hasClass('hidden2')){
-				showContent();
-				$("#filter").animate({
-					width:'0px',
-					opacity: 0,
-				},800)
-				$("#filterTag img").removeClass('clicked')
-			}
-			alert(commutingStyle)
-			console.log();
-			var maps = searchForDetail(commutingStyle,commutingTime,floorPlan,priceRange,propertyType,lifeCon);
-			addContent(maps);
-		});
-	}
-
-	var addContent = function(maps){
-
-	}
-
-	// var applyFilter = function(commutingStyle, floorPlan, priceRange, types, propertyType, lifeCon){
-	// 	$('#apply').click(function(event) {
-	// 		if ($('#content').hasClass('hidden2')){
-	// 			showContent();
-	// 			$("#filter").animate({
-	// 				width:'0px',
-	// 				opacity: 0,
-	// 			},800)
-	// 			$("#filterTag img").removeClass('clicked')
-	// 		}
-	// 		// var commutingStyle =
-	// 		var commutingTime = commutingTime
-	// 		var floorPlan =floorPlan
-	// 		// alert(floorPlan);
-	// 		var priceRange = priceRange
-	// 		// var propertyType =
-	// 		var lifeCon = life
-	// 		alert(life)
-	// 		var maps = searchForDetail(commutingStyle,commutingTime,floorPlan,priceRange,propertyType,lifeCon);
-	// 		addContent(maps);
-	// 	});
-	// }
-	var searchForDetail = function(commutingStyle,commutingTime,floorPlan,priceRange,propertyType,lifeCon){
-		console.log("create post is working!") // sanity check
-    	$.ajax({
-	        url : "gtrent", // the endpoint
-	        type : "GET", // http method
-	        data : "ID=16", // data sent with the post request
-
-	        // handle a successful response
-	        success : function(json) {
-	            //$('#post-text').val(''); // remove the value from the input
-	            //console.log(json); // log the returned json to the console
-	            console.log("success"); // another sanity check
-	        },
-
-	        // handle a non-successful response
-	        error : function(xhr,errmsg,err) {
-	            //$('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
-	            //    " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
-	            //console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
-        }
-    });
-    	/*
-		var maps={};
-		var xhttp = new XMLHttpRequest();
-  		xhttp.onreadystatechange = function() {
-    	if (xhttp.readyState == 4 && xhttp.status == 200) {
-      		document.getElementById("content-1").innerHTML = xhttp.responseText;
-      		console.log(xhttp.responseText);
-    		}
-  		};
-	  	xhttp.open("POST", "", true);
-	 	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	  	xhttp.send("id=1");
-
-		return maps
-		*/
-	}
-	var hideContent=function(){
-
-		$("#content").animate({
-			height:'20px',
-			opacity: 1,
-		},500)
-		$('#content').addClass('hidden2');
-	}
-
-	var showContent = function(){
-		$("#content").animate({
-					height:'500px',
-					width:"300px",
-					opacity: 1,
-				},800)
-		$("#content").removeClass('hidden2')
-	}
+	
 
 	// Document on load.
 	$(function(){
@@ -824,17 +722,11 @@
 		filterToggle();
 		commutingStyle();
 		selectDetailToggle();
-		updateDetails();
+		//updateDetails();
 		// applyFilter();
 		//resumeContent();
-		$("#hideContent").click(function(){
-			if (! $("#content").hasClass('hidden2')){
-				hideContent()
-			}
-			else{
-				showContent();
-			}
-		});
+		
+		
 		// Animations
 		homeAnimate();
 		exploreAnimate();

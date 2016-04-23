@@ -83,8 +83,130 @@ function clearMarker(){
   setMapOnAll(null);
   markers=[];
 }
+var getFilters = function(){
+    var commutingStyle = "Driving"; // "Driving is the first tab by default"
+    // $("#commutingWay img").click(function(){
+    //  if (! $(this).hasClass("choosed")){
+    //    $("#commutingWay").children().removeClass("choosed");
+    //    $(this).addClass("choosed");
+    //    commutingStyle = ($(this).attr("id"));
+    //  }
+    // })
+    var commutingTime = new Array([$("#sliderMin").text(), $("#sliderMax").text()])
+    // alert(commutingTime);
+
+    $("#bed-show").text($("#bed").val())
+    $("#bath-show").text($("#bath").val())
+    var floorPlan = new Array([$("#bed").val(), $("#bath").val()])
+    // alert(floorPlan);
+
+    $("#priceMin-show").text($("#rental-payment-min").val());
+    $("#priceMax-show").text($("#rental-payment-max").val());
+    var priceRange = new Array([$("#rental-payment-min").val(), $("#rental-payment-max").val()])
+    // alert(priceRange);
+
+    var types = new Array()
+    if ($("#Apartment").is(':checked')){
+      types.push("Apartment");
+    }
+    if ($("#House").is(':checked')){
+      types.push("House");
+    }
+    if ($("#Condo").is(':checked')){
+      types.push("Condo");
+    }
+    if ($("#Townhouse").is(':checked')){
+      types.push("Townhouse");
+    }
+    $("#propertyType-show").text(types[0] + " " + types[1] + " " + types[2] + " " + types[3]);
+    var propertyType = types;
+    // alert(propertyType);
+
+    var life = new Array()
+    if ($("#Food").is(':checked')){
+      life.push("Food");
+    }
+    if ($("#Gas").is(':checked')){
+      life.push("Gas");
+    }
+    if ($("#Entertainment").is(':checked')){
+      life.push("Entertainment");
+    }
+    $('#lifeConvenience-show').text(life[0] + " " + life[1] + " " + life[2] + " " + life[3]);
+    var lifeCon = life;
+    // alert(lifeCon);
+
+    return filter //filter is a json var
+  }
+
+  var addContent = function(data){
+
+  }
+
+  var searchForDetail = function(filter){ //The input is a json file
+    console.log("create post is working!") // sanity check
+      $.ajax({
+          url : "gtrent", // the endpoint
+          type : "GET", // http method
+          data : "ID=16", // data sent with the post request
+
+          // handle a successful response
+          success : function(json) {
+              //$('#post-text').val(''); // remove the value from the input
+              console.log(json); // log the returned json to the console
+              console.log("success"); // another sanity check
+          },
+
+          // handle a non-successful response
+          error : function(xhr,errmsg,err) {
+              //$('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
+              //    " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+              console.log("failed"); // provide a bit more info about the error to the console
+        }
+    });
+  }
+  var hideContent=function(){
+
+    $("#content").animate({
+      height:'20px',
+      opacity: 1,
+    },500)
+    //$("#content").css({"overflow":"hidden"});
+    $('#content').addClass('hidden2');
+  }
+
+  var showContent = function(){
+    $("#content").animate({
+          height:'500px',
+          width:"300px",
+          opacity: 1,
+        },800)
+    //$("#content").css({"overflow":"scroll"});
+    $("#content").removeClass('hidden2')
+  }
+
+$("#hideContent").click(function(){
+      if (! $("#content").hasClass('hidden2')){
+        hideContent()
+      }
+      else{
+        showContent();
+      }
+    });
 
 $('#apply').click(function(){
+  if ($('#content').hasClass('hidden2')){
+    showContent();
+    $("#filter").animate({
+      width:'0px',
+      opacity: 0,
+      
+    },800)
+    $("#filterTag img").removeClass('clicked')
+  }
+
+  var queryResult = searchForDetail(getFilters());
+  addContent(queryResult);
   clearMarker();
   var location  = new google.maps.LatLng(33.8601,-84.33292);
   markers.push( new google.maps.Marker({
@@ -96,3 +218,20 @@ $('#apply').click(function(){
   setMapOnAll(map);
   map.setCenter(location);
 })
+
+
+
+
+//Sample filter variable:
+//{"commutingStyle":"driving",
+//  "bed":1,
+//  "bath":1.0,
+//  "priceMin":0,
+//  "priceMax":1000,
+//  "Apartment":True,
+//  "House":False,
+//  "Condo":False,
+//  "Townhouse":False,
+//  "Food":True,
+//  "Gas":False,
+//  "Entertainment":True}
