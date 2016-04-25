@@ -1253,7 +1253,7 @@ h1, h2, h3, h4, h5, h6 {
 #detailWin h3{
   font-size: 20px;
   margin-bottom: 0px;
-  padding-bottom:0px; 
+  padding-bottom:0px;
 }
 #recommendWin article{
   width: 100%;
@@ -1287,6 +1287,15 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 13px;
   font-weight: 100;
   border-bottom: 1px solid lightgrey;
+}
+
+#teamMember h3{
+  font-size: 32px;
+  margin-top: 10px;
+  margin-left: 0px;
+  margin-bottom: 10px;
+  padding-bottom: 0px;
+  text-align:center;
 }
 .mfp-with-zoom .mfp-container,
 .mfp-with-zoom.mfp-bg {
