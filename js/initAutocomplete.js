@@ -243,6 +243,7 @@ var getFilters = function(){
 
   var searchForDetail = function(filter){ //The input is a json file
     console.log("create post is working!") // sanity check
+    var results=[];
       $.ajax({
           url : "/gtrent", // the endpoint
           type : "GET", // http method
@@ -254,7 +255,7 @@ var getFilters = function(){
               //$('#post-text').val(''); // remove the value from the input
               console.log(json); // log the returned json to the console
               console.log("success"); // another sanity check
-              return ;
+              results = json;
           },
           // handle a non-successful response
           error : function(xhr,errmsg,err) {
@@ -263,6 +264,7 @@ var getFilters = function(){
               console.log("failed"); // provide a bit more info about the error to the console
         }
     });
+    return results;
   }
   var hideContent=function(){
 
@@ -304,11 +306,11 @@ $('#apply').click(function(){
   },800)
   $("#filterTag img").removeClass('clicked')
 
-  //queryResult = searchForDetail(getFilters());
+  queryResult = searchForDetail(getFilters());
   clearMarker();
   $("#content").children("article").remove();
   // var filter  = getFilters();
-  addContent($("#content"),testQueryRes);
+  addContent($("#content"),queryResult);
   setMapOnAll(map);
   map.panTo(mapCenter);
 })
@@ -343,7 +345,7 @@ var showDetailWin=function(element){
   recommendDiv.attr("id","recommendWin");
   recommendDiv.append('<div style="width:100%;height:20px;border-bottom: 1px solid lightgrey;"><p style="font-size:10px;text-align:center;">Similar properties as follows</p></div>')
   var recommendData=[];
-  testQueryRes.forEach(function(querydata){
+  queryResult.forEach(function(querydata){
     if (data["cluster"]==querydata["cluster"]){
       recommendData.push(querydata);
     }
