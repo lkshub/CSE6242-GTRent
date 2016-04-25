@@ -188,7 +188,7 @@ var getFilters = function(){
       "Entertainment":lifeCon[2]
     };
 
-    console.log(filter); //filter is a json var
+    return filter;
   }
 
   var addContent = function(dataArray){
@@ -200,7 +200,7 @@ var getFilters = function(){
       console.log(data);
       var location  = new google.maps.LatLng(data["lat"],data["lon"]);
       var image = {
-        url:'./images/room_blue_48x48.png',
+        url:'../images/room_blue_48x48.png',
         size: new google.maps.Size(48, 48),
         origin: new google.maps.Point(0, 0),
         anchor: new google.maps.Point(12,24),
@@ -239,8 +239,9 @@ var getFilters = function(){
   var searchForDetail = function(filter){ //The input is a json file
     console.log("create post is working!") // sanity check
       $.ajax({
-          url : "gtrent", // the endpoint
+          url : "/gtrent", // the endpoint
           type : "GET", // http method
+	  dataType: "json",
           data : filter, // data sent with the post request
 
           // handle a successful response
@@ -298,10 +299,10 @@ $('#apply').click(function(){
   },800)
   $("#filterTag img").removeClass('clicked')
 
-  // queryResult = searchForDetail(getFilters());
+  queryResult = searchForDetail(getFilters());
   clearMarker();
   $("#content").children("article").remove();
-  var filter  = getFilters();
+  // var filter  = getFilters();
   addContent(testQueryRes);
   setMapOnAll(map);
   map.setCenter(mapCenter);
