@@ -7,10 +7,17 @@
 // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
 var map;
 var markers=[];
+var infowindows=[];
 var queryResult=[];
 var mapCenter;
 var mapZoom=12;
-var testQueryRes=[{"commutingStyle":"driving","commutingTime":"20min","name":"Walton River","address":"2550 Akers Mill Rd SE","lat":33.778016,"lon":-84.399205,"webSite": "www.www.com","zipCode":"30339","floorPlans":[{ "bed":1,"bath":1.0,"price":950,"sqft":800},{ "bed":1,"bath":1.0,"price":1000,"sqft":900 }],"propertyType":"Apartment","crimeScore":90,"foodScore":90,"gasScore":90,"entertainmentScore":90}];
+var blueicon = {
+        url:'./images/room_blue_24x24.png',
+      }
+var redicon = {
+  url:'./images/room_red_24x24.png',
+}
+var testQueryRes=[{"commutingStyle":"driving","commutingTime":"20min","name":"Walton River","address":"2550 Akers Mill Rd SE","lat":33.778016,"lon":-84.399205,"webSite": "www.www.com","zipCode":"30339","floorPlans":[{ "bed":1,"bath":1.0,"price":950,"sqft":800},{ "bed":1,"bath":1.0,"price":1000,"sqft":900 }],"propertyType":"Apartment","crimeScore":90,"foodScore":90,"gasScore":90,"entertainmentScore":90},{"commutingStyle":"driving","commutingTime":"20min","name":"Walton River2","address":"2550 Akers Mill Rd SE","lat":33.778016,"lon":-84.5,"webSite": "www.www.com","zipCode":"30339","floorPlans":[{ "bed":1,"bath":1.0,"price":950,"sqft":800},{ "bed":1,"bath":1.0,"price":1000,"sqft":900 }],"propertyType":"Apartment","crimeScore":90,"foodScore":90,"gasScore":90,"entertainmentScore":90}];
 function initAutocomplete() {
   var myLatlng = new google.maps.LatLng(33.778016, -84.399205);
   map = new google.maps.Map(document.getElementById('map'), {
@@ -197,22 +204,27 @@ var getFilters = function(){
     dataArray.forEach(function(data,index){
       latsum=latsum+data["lat"];
       lonsum=lonsum+data["lon"];
-      console.log(data);
+      //console.log(data);
+      var infowindow = new google.maps.InfoWindow({
+        content: data["name"],
+      });
+      infowindows.push(infowindow);
       var location  = new google.maps.LatLng(data["lat"],data["lon"]);
-      var image = {
-        url:'../images/room_blue_48x48.png',
-        size: new google.maps.Size(48, 48),
-        origin: new google.maps.Point(0, 0),
-        anchor: new google.maps.Point(12,24),
-        scaledSize: new google.maps.Size(24, 24)
-      }
-      markers.push( new google.maps.Marker({
+      
+      var marker = new google.maps.Marker({
         position: location,
         animation: google.maps.Animation.DROP,
-        icon:image
-      }));
+        icon:blueicon
+      })
+      marker.addListener('mouseover', function() {
+        infowindow.open(map, marker);
+      });
+      marker.addListener('mouseout', function() {
+        infowindow.close(map,marker);
+      });
+      markers.push( marker);
       var id="content-"+(index+1).toString();
-      var thisArticle = $('<article>').attr("id",id);
+      var thisArticle = $('<article>').attr({"id":id,"onmouseenter":"focusOn(this)","onmouseleave":"focusOut(this)"});
       var name = $('<h3>').text(data["name"]);
       var address = $('<p>').text(data["address"]+", "+data["zipCode"]);
       var priceTable=$("<table>");
@@ -299,7 +311,7 @@ $('#apply').click(function(){
   },800)
   $("#filterTag img").removeClass('clicked')
 
-  queryResult = searchForDetail(getFilters());
+  //queryResult = searchForDetail(getFilters());
   clearMarker();
   $("#content").children("article").remove();
   // var filter  = getFilters();
@@ -307,7 +319,20 @@ $('#apply').click(function(){
   setMapOnAll(map);
   map.setCenter(mapCenter);
 })
-
+var focusOn=function(element){
+  console.log("over");
+  $(element).addClass("focused");
+  var id=parseInt(element.id.split("-")[1]);
+  markers[id-1].setIcon(redicon);
+  infowindows[id-1].open(map,markers[id-1]);
+}
+var focusOut=function(element){
+  console.log("out");
+  $(element).removeClass("focused");
+  var id=parseInt(element.id.split("-")[1]);
+  markers[id-1].setIcon(blueicon);
+  infowindows[id-1].close(map,markers[id-1]);
+}
 
 
 
@@ -355,4 +380,5 @@ $('#apply').click(function(){
 //  "crimeScore":90
 //  "foodScore":90,
 //  "gasScore":90,
-//  "entertainmentScore":90}
+//  "entertainmentScore":90,
+//  "cluster":0}

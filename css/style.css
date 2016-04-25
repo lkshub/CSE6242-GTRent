@@ -1045,10 +1045,12 @@ h1, h2, h3, h4, h5, h6 {
   border-bottom: 1px solid lightgrey;
   padding-left: 8px;
 }
+.focused{
+  background-color: #F1F1F1;
+}
 #content article h3{
   height: 20px ;
   font-size: 20px !important;
-  background: white !important;
   margin-top: 5px;
   margin-bottom: 0px;
   text-align: left;
