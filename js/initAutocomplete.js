@@ -173,10 +173,10 @@ var getFilters = function(){
 
     var filter={
       "commutingStyle":commutingStyle,
-      "commutingTimeMin":parseInt(commutingTime[0][0]),
-      "commutingTimeMax":parseInt(commutingTime[0][1]),
-      "bed":parseInt(floorPlan[0][0]),
-      "bath":parseInt(floorPlan[0][1]),
+      "commutingTimeMin":commutingTime[0][0],
+      "commutingTimeMax":commutingTime[0][1],
+      "bed":floorPlan[0][0],
+      "bath":floorPlan[0][1],
       "priceMin":parseInt(priceRange[0][0]),
       "priceMax":parseInt(priceRange[0][1]),
       "Apartment":propertyType[0],
