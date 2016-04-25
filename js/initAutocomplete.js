@@ -106,13 +106,7 @@ var getFilters = function(){
         commutingStyle = "transit";
       }
     }
-    // $("#commutingWay img").click(function(){
-    //  if (! $(this).hasClass("choosed")){
-    //    $("#commutingWay").children().removeClass("choosed");
-    //    $(this).addClass("choosed");
-    //    commutingStyle = ($(this).attr("id"));
-    //  }
-    // })
+
     var commutingTime = new Array([$("#sliderMin").text(), $("#sliderMax").text()])
     // alert(commutingTime);
 
@@ -210,7 +204,6 @@ var getFilters = function(){
       });
       infowindows.push(infowindow);
       var location  = new google.maps.LatLng(data["lat"],data["lon"]);
-      
       var marker = new google.maps.Marker({
         position: location,
         animation: google.maps.Animation.DROP,
