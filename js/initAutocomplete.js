@@ -254,7 +254,7 @@ var getFilters = function(){
               //$('#post-text').val(''); // remove the value from the input
               console.log(json); // log the returned json to the console
               console.log("success"); // another sanity check
-              return ;
+              return json;
           },
           // handle a non-successful response
           error : function(xhr,errmsg,err) {
