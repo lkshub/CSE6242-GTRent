@@ -638,7 +638,7 @@
 	      if (! $(this).hasClass("choosed")){
 	        $("#commutingWay").children().removeClass("choosed");
 	        $(this).addClass("choosed");
-	        commutingStyle = ($(this).attr("id"));
+	        commutingSupdatetyle = ($(this).attr("id"));
 	      }
 	     })
 	    var commutingTime = new Array([$("#sliderMin").text(), $("#sliderMax").text()])

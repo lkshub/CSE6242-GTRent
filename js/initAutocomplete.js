@@ -88,7 +88,17 @@ function clearMarker(){
   markers=[];
 }
 var getFilters = function(){
-    var commutingStyle = "Driving"; // "Driving is the first tab by default"
+    if ($("#Driving").hasClass('choosed')){
+      commutingStyle = "driving";
+    }
+    else{
+      if ($("#Walking").hasClass('choosed')){
+        commutingStyle = "walking";
+      }
+      else{
+        commutingStyle = "transit";
+      }
+    }
     // $("#commutingWay img").click(function(){
     //  if (! $(this).hasClass("choosed")){
     //    $("#commutingWay").children().removeClass("choosed");
@@ -134,7 +144,7 @@ var getFilters = function(){
     else{
       types.push(false);
     }
-    $("#propertyType-show").text(types[0] + " " + types[1] + " " + types[2] + " " + types[3]);
+    //$("#propertyType-show").text(types[0] + " " + types[1] + " " + types[2] + " " + types[3]);
     var propertyType = types;
     // alert(propertyType);
 
@@ -157,13 +167,12 @@ var getFilters = function(){
     else{
       life.push(false);
     }
-    $('#lifeConvenience-show').text(life[0] + " " + life[1] + " " + life[2] + " " + life[3]);
+    //$('#lifeConvenience-show').text(life[0] + " " + life[1] + " " + life[2] + " " + life[3]);
     var lifeCon = life;
     // alert(lifeCon);
 
-    var filter = [];
-    filter.push({
-      "commutingStyle":"driving",
+    var filter={
+      "commutingStyle":commutingStyle,
       "commutingTimeMin":parseInt(commutingTime[0][0]),
       "commutingTimeMax":parseInt(commutingTime[0][1]),
       "bed":parseInt(floorPlan[0][0]),
@@ -177,7 +186,7 @@ var getFilters = function(){
       "Food":lifeCon[0],
       "Gas":lifeCon[1],
       "Entertainment":lifeCon[2]
-    });
+    };
 
     console.log(filter); //filter is a json var
   }
@@ -190,9 +199,17 @@ var getFilters = function(){
       lonsum=lonsum+data["lon"];
       console.log(data);
       var location  = new google.maps.LatLng(data["lat"],data["lon"]);
+      var image = {
+        url:'./images/room_blue_48x48.png',
+        size: new google.maps.Size(48, 48),
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(12,24),
+        scaledSize: new google.maps.Size(24, 24)
+      }
       markers.push( new google.maps.Marker({
         position: location,
-        animation: google.maps.Animation.DROP
+        animation: google.maps.Animation.DROP,
+        icon:image
       }));
       var id="content-"+(index+1).toString();
       var thisArticle = $('<article>').attr("id",id);
@@ -284,7 +301,7 @@ $('#apply').click(function(){
   // queryResult = searchForDetail(getFilters());
   clearMarker();
   $("#content").children("article").remove();
-
+  var filter  = getFilters();
   addContent(testQueryRes);
   setMapOnAll(map);
   map.setCenter(mapCenter);
@@ -312,7 +329,9 @@ $('#apply').click(function(){
 
 //Sample data variable return from Django:
 //{"commutingStyle":"driving",
-// "commutingTime":"20min",
+// "drivingTime":"20min",
+// "walkingTime":"30min",
+// "transitTime":"40min",
 // "name":"Walton River",
 // "address":"2550 Akers Mill Rd SE",
 // "lat":30.0000,
