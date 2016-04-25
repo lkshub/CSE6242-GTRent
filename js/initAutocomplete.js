@@ -222,7 +222,7 @@ $('#apply').click(function(){
 
 
 
-//Sample filter variable:
+//Sample filter variable sent to Django:
 //{"commutingStyle":"driving",
 //  "bed":1,
 //  "bath":1.0,
@@ -235,3 +235,31 @@ $('#apply').click(function(){
 //  "Food":True,
 //  "Gas":False,
 //  "Entertainment":True}
+
+
+//Sample data variable return from Django:
+//{"commutingStyle":"driving",
+// "commutingTime":"20min",
+// "name":"Walton River",
+// "address":"2550 Akers Mill Rd SE",
+// "lat":30.0000,
+// "lon":-80.0000,
+// "webSite": "www.www.com",
+// "zipCode":"30339",
+// "floorPlans":[
+//  { "bed":1,
+//    "bath":1.0,
+//    "price":950,
+//    "sqft":800,  
+//  },
+//  { "bed":1,
+//    "bath":1.0,
+//    "price":1000,
+//    "sqft":900,  
+//  }
+//  ]
+//  "propertyType":"Apartment",
+//  "crimeScore":90
+//  "foodScore":90,
+//  "gasScore":90,
+//  "entertainmentScore":90}
