@@ -17,7 +17,7 @@ var blueicon = {
 var redicon = {
   url:'./images/room_red_48x48.png',
 }
-var testQueryRes=[{"commutingStyle":"driving","commutingTime":"20min","name":"Walton River","address":"2550 Akers Mill Rd SE","lat":33.778016,"lon":-84.399205,"webSite": "www.www.com","zipCode":"30339","floorPlans":[{ "bed":1,"bath":1.0,"price":950,"sqft":800},{ "bed":1,"bath":1.0,"price":1000,"sqft":900 }],"propertyType":"Apartment","crimeScore":90,"foodScore":90,"gasScore":90,"entertainmentScore":90},{"commutingStyle":"driving","commutingTime":"20min","name":"Walton River2","address":"2550 Akers Mill Rd SE","lat":33.778016,"lon":-84.5,"webSite": "www.www.com","zipCode":"30339","floorPlans":[{ "bed":1,"bath":1.0,"price":950,"sqft":800},{ "bed":1,"bath":1.0,"price":1000,"sqft":900 }],"propertyType":"Apartment","crimeScore":90,"foodScore":90,"gasScore":90,"entertainmentScore":90}];
+var testQueryRes=[{"commutingStyle":"driving","commutingTime":"20min","name":"Walton River","address":"2550 Akers Mill Rd SE","lat":33.778016,"lon":-84.399205,"webSite": "www.www.com","zipCode":"30339","floorPlans":[{ "bed":1,"bath":1.0,"price":950,"sqft":800},{ "bed":1,"bath":1.0,"price":1000,"sqft":900 }],"propertyType":"Apartment","crimeScore":90,"foodScore":90,"gasScore":90,"entertainmentScore":90,"cluster":1},{"commutingStyle":"driving","commutingTime":"20min","name":"Walton River2","address":"2550 Akers Mill Rd SE","lat":33.778016,"lon":-84.5,"webSite": "www.www.com","zipCode":"30339","floorPlans":[{ "bed":1,"bath":1.0,"price":950,"sqft":800},{ "bed":1,"bath":1.0,"price":1000,"sqft":900 }],"propertyType":"Apartment","crimeScore":90,"foodScore":90,"gasScore":90,"entertainmentScore":90,"cluster":1}];
 function initAutocomplete() {
   var myLatlng = new google.maps.LatLng(33.778016, -84.399205);
   map = new google.maps.Map(document.getElementById('map'), {
@@ -192,7 +192,7 @@ var getFilters = function(){
     return filter;
   }
 
-  var addContent = function(dataArray){
+  var addContent = function(content,dataArray){
     var latsum=0;
     var lonsum=0;
     dataArray.forEach(function(data,index){
@@ -236,7 +236,7 @@ var getFilters = function(){
       thisArticle.append(website);
       thisArticle.prepend(address);
       thisArticle.prepend(name);
-      $('#content').append(thisArticle);
+      content.append(thisArticle);
     })
     mapCenter = new google.maps.LatLng(latsum/dataArray.length,lonsum/dataArray.length);
   }
@@ -308,12 +308,14 @@ $('#apply').click(function(){
   clearMarker();
   $("#content").children("article").remove();
   // var filter  = getFilters();
-  addContent(testQueryRes);
+  addContent($("#content"),testQueryRes);
   setMapOnAll(map);
   map.panTo(mapCenter);
 })
 var focusOn=function(element){
   console.log("over");
+  $(element).parent("div").css("opacity","0.8");
+  $("#detailWin").css("opacity","0.5");
   $(element).addClass("focused");
   var id=parseInt(element.id.split("-")[1]);
   markers[id-1].setIcon(redicon);
@@ -322,6 +324,8 @@ var focusOn=function(element){
 }
 var focusOut=function(element){
   console.log("out");
+  $(element).parent("div").css("opacity","1");
+  $("#detailWin").css("opacity","1");
   $(element).removeClass("focused");
   var id=parseInt(element.id.split("-")[1]);
   markers[id-1].setIcon(blueicon);
@@ -330,32 +334,46 @@ var focusOut=function(element){
 
 var showDetailWin=function(element){
   var id=parseInt(element.id.split("-")[1]);
-  console.log(id);
+  var data=testQueryRes[id-1];
   var thisWin = $('<div>').attr({"id":"detailWin"});
-  /*
-  var name = $('<h3>').text(data["name"]);
-  var address = $('<p>').text(data["address"]+", "+data["zipCode"]);
-  var priceTable=$("<table>");
-  data["floorPlans"].forEach(function(plan){
-    var list = $("<tr>");
-    $('<th>').text(plan["bed"]+" Bedrooms").appendTo(list);
-    $('<th>').text(plan["bath"]+" Bath").appendTo(list);
-    $('<th>').text("$"+plan["price"].toString()).appendTo(list);
-    $('<th>').text(plan["sqft"].toString()+" Sqft").appendTo(list);
-    list.appendTo(priceTable);
+  thisWin.append('<div style="width:100%;height:20px;border-bottom: 1px solid lightgrey;"><img id="closeDetailWin" onclick=closeDetailWindow() title = "Close" data-toggle="tooltip" src="./images/closeWin.png" data-placement="left" style="position:absolute;height:20px;vertical-align:top;right:5px;cursor:pointer;"></div>')
+  var header =$('<h2>').text(data["name"]);
+  thisWin.append(header);
+  var recommendDiv = $("<div>").css({"position":"absolute","top":"20px","right":"0px","border-left":" 1px solid lightgrey","width":"50%","height":"95%","overflow-y":"scroll"});
+  recommendDiv.attr("id","recommendWin");
+  recommendDiv.append('<div style="width:100%;height:20px;border-bottom: 1px solid lightgrey;"><p style="font-size:10px">Similar properties as follows</p></div>')
+  var recommendData=[];
+  testQueryRes.forEach(function(querydata){
+    if (data["cluster"]==querydata["cluster"]){
+      recommendData.push(querydata);
+    }
   })
-  priceTable.appendTo(thisArticle);
-  var link = $("<a>").text("Listing on Zillow.com");
-  link.attr("herf",data["webSite"]);
-  var website = $("<p>").append(link);
-  thisArticle.append(website);
-  thisArticle.prepend(address);
-  thisArticle.prepend(name);
-  */
+  addContent(recommendDiv,recommendData);
+  var address1 =$('<h3>').text(data["address"]);
+  thisWin.append(address1);
+  var address2 =$('<h3>').text(data["zipCode"]+", GA");
+  thisWin.append(address2);
+  thisWin.append(recommendDiv);
+  DrivingTime = $("<p>").text("Driving Time: "+(data["drivingTime"]/60).toString()+"min");
+  WalkingTime = $("<p>").text("Driving Time: "+(data["walkingTime"]/60).toString()+"min");
+  TransitTime = $("<p>").text("Driving Time: "+(data["transitTime"]/60).toString()+"min");
+  securityScore = $("<p>").text("Security Score(0-100): "+data["crimeScore"].toString());
+  FoodScore = $("<p>").text("Food Score(0-100): "+data["foodScore"].toString());
+  GasScore = $("<p>").text("Gas Score(0-100): "+data["gasScore"].toString());
+  EntertainmentScore = $("<p>").text("Entertainment Score(0-100): "+data["entertainmentScore"].toString());
+  thisWin.append(DrivingTime);
+  thisWin.append(WalkingTime);
+  thisWin.append(TransitTime);
+  thisWin.append(securityScore);
+  thisWin.append(FoodScore);
+  thisWin.append(GasScore);
+  thisWin.append(EntertainmentScore);
   $('#exploreContent').append(thisWin);
 }
 
-
+var closeDetailWindow=function(){
+  $('#detailWin').remove();
+}
 
 
 //Sample filter variable sent to Django:
