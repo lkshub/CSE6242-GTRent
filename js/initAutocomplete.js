@@ -12,10 +12,10 @@ var queryResult=[];
 var mapCenter;
 var mapZoom=12;
 var blueicon = {
-        url:'./images/room_blue_24x24.png',
+        url:'./images/room_blue_36x36.png',
       }
 var redicon = {
-  url:'./images/room_red_24x24.png',
+  url:'./images/room_red_48x48.png',
 }
 var testQueryRes=[{"commutingStyle":"driving","commutingTime":"20min","name":"Walton River","address":"2550 Akers Mill Rd SE","lat":33.778016,"lon":-84.399205,"webSite": "www.www.com","zipCode":"30339","floorPlans":[{ "bed":1,"bath":1.0,"price":950,"sqft":800},{ "bed":1,"bath":1.0,"price":1000,"sqft":900 }],"propertyType":"Apartment","crimeScore":90,"foodScore":90,"gasScore":90,"entertainmentScore":90},{"commutingStyle":"driving","commutingTime":"20min","name":"Walton River2","address":"2550 Akers Mill Rd SE","lat":33.778016,"lon":-84.5,"webSite": "www.www.com","zipCode":"30339","floorPlans":[{ "bed":1,"bath":1.0,"price":950,"sqft":800},{ "bed":1,"bath":1.0,"price":1000,"sqft":900 }],"propertyType":"Apartment","crimeScore":90,"foodScore":90,"gasScore":90,"entertainmentScore":90}];
 function initAutocomplete() {
@@ -224,7 +224,7 @@ var getFilters = function(){
       });
       markers.push( marker);
       var id="content-"+(index+1).toString();
-      var thisArticle = $('<article>').attr({"id":id,"onmouseenter":"focusOn(this)","onmouseleave":"focusOut(this)"});
+      var thisArticle = $('<article>').attr({"id":id,"onmouseenter":"focusOn(this)","onmouseleave":"focusOut(this)","onclick":"showDetailWin(this)"});
       var name = $('<h3>').text(data["name"]);
       var address = $('<p>').text(data["address"]+", "+data["zipCode"]);
       var priceTable=$("<table>");
@@ -317,7 +317,7 @@ $('#apply').click(function(){
   // var filter  = getFilters();
   addContent(testQueryRes);
   setMapOnAll(map);
-  map.setCenter(mapCenter);
+  map.panTo(mapCenter);
 })
 var focusOn=function(element){
   console.log("over");
@@ -325,6 +325,7 @@ var focusOn=function(element){
   var id=parseInt(element.id.split("-")[1]);
   markers[id-1].setIcon(redicon);
   infowindows[id-1].open(map,markers[id-1]);
+  map.panTo(markers[id-1].position);
 }
 var focusOut=function(element){
   console.log("out");
@@ -333,6 +334,34 @@ var focusOut=function(element){
   markers[id-1].setIcon(blueicon);
   infowindows[id-1].close(map,markers[id-1]);
 }
+
+var showDetailWin=function(element){
+  var id=parseInt(element.id.split("-")[1]);
+  console.log(id);
+  var thisWin = $('<div>').attr({"id":"detailWin"});
+  /*
+  var name = $('<h3>').text(data["name"]);
+  var address = $('<p>').text(data["address"]+", "+data["zipCode"]);
+  var priceTable=$("<table>");
+  data["floorPlans"].forEach(function(plan){
+    var list = $("<tr>");
+    $('<th>').text(plan["bed"]+" Bedrooms").appendTo(list);
+    $('<th>').text(plan["bath"]+" Bath").appendTo(list);
+    $('<th>').text("$"+plan["price"].toString()).appendTo(list);
+    $('<th>').text(plan["sqft"].toString()+" Sqft").appendTo(list);
+    list.appendTo(priceTable);
+  })
+  priceTable.appendTo(thisArticle);
+  var link = $("<a>").text("Listing on Zillow.com");
+  link.attr("herf",data["webSite"]);
+  var website = $("<p>").append(link);
+  thisArticle.append(website);
+  thisArticle.prepend(address);
+  thisArticle.prepend(name);
+  */
+  $('#exploreContent').append(thisWin);
+}
+
 
 
 
