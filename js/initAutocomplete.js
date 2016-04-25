@@ -304,11 +304,11 @@ $('#apply').click(function(){
   },800)
   $("#filterTag img").removeClass('clicked')
 
-  //queryResult = searchForDetail(getFilters());
+  queryResult = searchForDetail(getFilters());
   clearMarker();
   $("#content").children("article").remove();
   // var filter  = getFilters();
-  addContent($("#content"),testQueryRes);
+  addContent($("#content"),queryResult);
   setMapOnAll(map);
   map.panTo(mapCenter);
 })
@@ -343,7 +343,7 @@ var showDetailWin=function(element){
   recommendDiv.attr("id","recommendWin");
   recommendDiv.append('<div style="width:100%;height:20px;border-bottom: 1px solid lightgrey;"><p style="font-size:10px;text-align:center;">Similar properties as follows</p></div>')
   var recommendData=[];
-  testQueryRes.forEach(function(querydata){
+  queryResult.forEach(function(querydata){
     if (data["cluster"]==querydata["cluster"]){
       recommendData.push(querydata);
     }
