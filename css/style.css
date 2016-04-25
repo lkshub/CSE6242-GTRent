@@ -1056,7 +1056,7 @@ h1, h2, h3, h4, h5, h6 {
 #content article p{
   text-align: left;
   font-size: 15px;
-  margin: 0px;
+  margin-bottom: 5px;
 }
 #content article table{
   margin: 5px;

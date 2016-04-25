@@ -7,6 +7,10 @@
 // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
 var map;
 var markers=[];
+var queryResult=[];
+var mapCenter;
+var mapZoom=12;
+var testQueryRes=[{"commutingStyle":"driving","commutingTime":"20min","name":"Walton River","address":"2550 Akers Mill Rd SE","lat":33.778016,"lon":-84.399205,"webSite": "www.www.com","zipCode":"30339","floorPlans":[{ "bed":1,"bath":1.0,"price":950,"sqft":800},{ "bed":1,"bath":1.0,"price":1000,"sqft":900 }],"propertyType":"Apartment","crimeScore":90,"foodScore":90,"gasScore":90,"entertainmentScore":90}];
 function initAutocomplete() {
   var myLatlng = new google.maps.LatLng(33.778016, -84.399205);
   map = new google.maps.Map(document.getElementById('map'), {
@@ -139,8 +143,41 @@ var getFilters = function(){
     return filter //filter is a json var
   }
 
-  var addContent = function(data){
-
+  var addContent = function(dataArray){
+    var latsum=0;
+    var lonsum=0;
+    dataArray.forEach(function(data,index){
+      latsum=latsum+data["lat"];
+      lonsum=lonsum+data["lon"];
+      console.log(data);
+      var location  = new google.maps.LatLng(data["lat"],data["lon"]);
+      markers.push( new google.maps.Marker({
+        position: location, 
+        animation: google.maps.Animation.DROP
+      }));
+      var id="content-"+(index+1).toString();
+      var thisArticle = $('<article>').attr("id",id);
+      var name = $('<h3>').text(data["name"]);
+      var address = $('<p>').text(data["address"]+", "+data["zipCode"]);
+      var priceTable=$("<table>");
+      data["floorPlans"].forEach(function(plan){
+        var list = $("<tr>");
+        $('<th>').text(plan["bed"]+" Bedrooms").appendTo(list);
+        $('<th>').text(plan["bath"]+" Bath").appendTo(list);
+        $('<th>').text("$"+plan["price"].toString()).appendTo(list);
+        $('<th>').text(plan["sqft"].toString()+" Sqft").appendTo(list);
+        list.appendTo(priceTable);
+      })
+      priceTable.appendTo(thisArticle);
+      var link = $("<a>").text("Listing on Zillow.com");
+      link.attr("herf",data["webSite"]);
+      var website = $("<p>").append(link);
+      thisArticle.append(website);
+      thisArticle.prepend(address);
+      thisArticle.prepend(name);
+      $('#content').append(thisArticle);
+    })
+    mapCenter = new google.maps.LatLng(latsum/dataArray.length,lonsum/dataArray.length);
   }
 
   var searchForDetail = function(filter){ //The input is a json file
@@ -148,15 +185,15 @@ var getFilters = function(){
       $.ajax({
           url : "gtrent", // the endpoint
           type : "GET", // http method
-          data : "ID=16", // data sent with the post request
+          data : filter, // data sent with the post request
 
           // handle a successful response
           success : function(json) {
               //$('#post-text').val(''); // remove the value from the input
               console.log(json); // log the returned json to the console
               console.log("success"); // another sanity check
+              return ;
           },
-
           // handle a non-successful response
           error : function(xhr,errmsg,err) {
               //$('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
@@ -197,26 +234,21 @@ $("#hideContent").click(function(){
 $('#apply').click(function(){
   if ($('#content').hasClass('hidden2')){
     showContent();
-    $("#filter").animate({
+  }
+  $("#filter").animate({
       width:'0px',
       opacity: 0,
       
-    },800)
-    $("#filterTag img").removeClass('clicked')
-  }
+  },800)
+  $("#filterTag img").removeClass('clicked')
 
-  var queryResult = searchForDetail(getFilters());
-  addContent(queryResult);
+  //queryResult = searchForDetail(getFilters());
   clearMarker();
-  var location  = new google.maps.LatLng(33.8601,-84.33292);
-  markers.push( new google.maps.Marker({
-        position: location, 
-        animation: google.maps.Animation.DROP
-        //map: map
-    })
-  );
+  $("#content").children("article").remove();
+
+  addContent(testQueryRes);
   setMapOnAll(map);
-  map.setCenter(location);
+  map.setCenter(mapCenter);
 })
 
 
