@@ -7,7 +7,7 @@
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>GTrent-</title>
+	<title>GTrent</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Free HTML5 Template by FREEHTML5.CO" />
 	<meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
@@ -245,7 +245,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12 section-heading text-center">
-						<h2 class="to-animate">We Offer Services</h2>
+						<h2 class="to-animate">Technics and Data Sources We Used</h2>
 						<div class="row">
 							<div class="col-md-8 col-md-offset-2 subtext">
 								<h3 class="to-animate">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove. </h3>
@@ -258,33 +258,33 @@
 						<div class="box-services">
 							<i class="icon-chemistry to-animate-2"></i>
 							<div class="fh5co-post to-animate">
-								<h3>Hand-crafted with Detailed</h3>
-								<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in.</p>
+								<h3>Property Data Scraping from Zillow.com</h3>
+								<p>Due to the limitation of Google API and Zillow API, we have switched to use the data scraped from Zillow website directly with Python. We utilized Zillow search engine and requested URLs. We then encoded the webpage and collected the name, coordinates, address, type and link for each property.By doing in this way, information of all the rental properties within I-285 highway have been acquired by going through all compatible zipcodes.</p>
+							</div>
+						</div>
+						<div class="box-services">
+							<i class="icon-paper-plane to-animate-2"></i>
+							<div class="fh5co-post to-animate">
+								<h3>Commuting Time Collection with Google Map Distance Matrix API</h3>
+								<p>In order to obtain approximate commuting time from rental places to school, we utilized Google Map Distance Matrix API to request travel durations between two given locations. Also, we will consider three main modes of transportations which is driving, transiting and walking.</p>
+							</div>
+						</div>
+
+					</div>
+					<div class="col-md-4">
+						<div class="box-services">
+							<i class="icon-trophy to-animate-2"></i>
+							<div class="fh5co-post to-animate">
+								<h3>Life Convenience Evaluation with Yelp API </h3>
+								<p>Data for convenience evaluation is downloaded from Yelp API. Every estate property is chosen as a searching center. Several category data has been involved to evaluate the convenience around the searching center. All the data that we gather will be stored as JSON files. Besides, every estate property will be given a yelp_grade which represent the level of convenience for this property. The following formulas are our basic evaluating standard.</p>
 							</div>
 						</div>
 
 						<div class="box-services">
 							<i class="icon-energy to-animate-2"></i>
 							<div class="fh5co-post to-animate">
-								<h3>Light and Fast</h3>
-								<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in.</p>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="box-services">
-							<i class="icon-trophy to-animate-2"></i>
-							<div class="fh5co-post to-animate">
-								<h3>Award-winning Landing Page</h3>
-								<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in.</p>
-							</div>
-						</div>
-
-						<div class="box-services">
-							<i class="icon-paper-plane to-animate-2"></i>
-							<div class="fh5co-post to-animate">
-								<h3>Sleek and Smooth Animation</h3>
-								<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in.</p>
+								<h3>Property Data Cleaning with OpenRefine</h3>
+								<p>Since data from Zillow.com does not have an uniform return for each request. The original data we scraped had many duplicates and blank tuples. So we utilized OpenRefine to get rid of all the dirty tuples. Finally the number of rental properties result we obtained is 1098, and all those properties are located within  I-285 highway in Atlanta.</p>
 							</div>
 						</div>
 					</div>
@@ -292,8 +292,8 @@
 						<div class="box-services">
 							<i class="icon-people to-animate-2"></i>
 							<div class="fh5co-post to-animate">
-								<h3>Satisfied &amp; Happy Clients</h3>
-								<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in.</p>
+								<h3>Local Crime Data Collection</h3>
+								<p> Local crime data are downloaded from Atlanta Police Department and scraped from crimemapping.com. We use the population by zip code to normalize crime rate, and give a crime score of certain address with crime reports number divided by population within I-285 area. Because the relationship between property price and distance from offender is within 0.15 miles, that means there’s no impact when people choosing a house more than 0.15 miles from the offender’s location.</p>
 							</div>
 						</div>
 
@@ -306,8 +306,8 @@
 						</div>
 					</div>
 				</div>
-				<div class="call-to-action text-center to-animate"><a href="#" class="btn btn-learn">Learn More</a></div>
-			</div>
+<!-- 				<div class="call-to-action text-center to-animate"><a href="#" class="btn btn-learn">Learn More</a></div>
+ -->			</div>
 		</div>
 	</section>
 
@@ -324,12 +324,13 @@
 						</div>
 					</div>
 				</div>
+
 				<div class="row">
-					<div class="col-md-4">
+					<div class="col-md-2 col-md-offset-1">
 						<div class="team-box text-center to-animate-2">
 							<div class="user"><img class="img-reponsive" src="images/person5.jpg" alt="Roger Garfield"></div>
 							<h3>Jiahao Luo</h3>
-							<span class="position">Co-Founder, Lead Developer</span>
+							<span class="position">Developer</span>
 							<p>Hello World!</p>
 							<ul class="social-media">
 								<li><a href="https://www.facebook.com/ryan.lo.14268" class="facebook"><i class="icon-facebook"></i></a></li>
@@ -341,7 +342,7 @@
 						</div>
 					</div>
 
-					<div class="col-md-4">
+					<div class="col-md-2">
 						<div class="team-box text-center to-animate-2">
 							<div class="user"><img class="img-reponsive" src="images/person2.jpg" alt="Roger Garfield"></div>
 							<h3>Kevin Steve</h3>
@@ -357,11 +358,43 @@
 						</div>
 					</div>
 
-					<div class="col-md-4">
+					<div class="col-md-2">
 						<div class="team-box text-center to-animate-2">
-							<div class="user"><img class="img-reponsive" src="images/person3.jpg" alt="Roger Garfield"></div>
-							<h3>Ross Standford</h3>
-							<span class="position">Full Stack Developer</span>
+							<div class="user"><img class="img-reponsive" src="images/person2.jpg" alt="Roger Garfield"></div>
+							<h3>Kevin Steve</h3>
+							<span class="position">Co-Founder, Product Designer</span>
+							<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+							<ul class="social-media">
+								<li><a href="#" class="facebook"><i class="icon-facebook"></i></a></li>
+								<li><a href="#" class="twitter"><i class="icon-twitter"></i></a></li>
+								<li><a href="#" class="dribbble"><i class="icon-dribbble"></i></a></li>
+								<li><a href="#" class="codepen"><i class="icon-codepen"></i></a></li>
+								<li><a href="#" class="github"><i class="icon-github-alt"></i></a></li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="col-md-2">
+						<div class="team-box text-center to-animate-2">
+							<div class="user"><img class="img-reponsive" src="images/person2.jpg" alt="Roger Garfield"></div>
+							<h3>Kevin Steve</h3>
+							<span class="position">Co-Founder, Product Designer</span>
+							<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+							<ul class="social-media">
+								<li><a href="#" class="facebook"><i class="icon-facebook"></i></a></li>
+								<li><a href="#" class="twitter"><i class="icon-twitter"></i></a></li>
+								<li><a href="#" class="dribbble"><i class="icon-dribbble"></i></a></li>
+								<li><a href="#" class="codepen"><i class="icon-codepen"></i></a></li>
+								<li><a href="#" class="github"><i class="icon-github-alt"></i></a></li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="col-md-2">
+						<div class="team-box text-center to-animate-2">
+							<div class="user"><img class="img-reponsive" src="images/person2.jpg" alt="Roger Garfield"></div>
+							<h3>Kevin Steve</h3>
+							<span class="position">Co-Founder, Product Designer</span>
 							<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
 							<ul class="social-media">
 								<li><a href="#" class="facebook"><i class="icon-facebook"></i></a></li>
@@ -394,7 +427,7 @@
 					<div class="col-md-6">
 						<div class="box-faq to-animate-2">
 							<h3>What is GT rent?</h3>
-							<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+							<p>Along with increasing student population in Georgia Tech, students who prefer living off campus encounter accommodation problems. Rents, distances to school, living convenience, and neighborhood crime rates are main aspects concerning them.</p>
 						</div>
 						<div class="box-faq to-animate-2">
 							<h3>I have technical problem, who do I email? </h3>
@@ -427,7 +460,7 @@
 
 	<hr>
 
-	<div class="getting-started getting-started-2">
+<!-- 	<div class="getting-started getting-started-2">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-6 to-animate">
@@ -442,25 +475,24 @@
 			</div>
 		</div>
 	</div>
-
+ -->
 	<div id="fh5co-footer" role="contentinfo">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-4 to-animate">
 					<h3 class="section-title">About Us</h3>
 					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics.</p>
-					<p class="copy-right">&copy; 2015 Union Free Template. <br>All Rights Reserved. <br>
-						More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a>
+					<p class="copy-right">&copy; 2016 GT Rent. <br>All Rights Reserved. <br>
 					</p>
 				</div>
 
 				<div class="col-md-4 to-animate">
 					<h3 class="section-title">Our Address</h3>
 					<ul class="contact-info">
-						<li><i class="icon-map-marker"></i>198 West 21th Street, Suite 721 New York NY 10016</li>
-						<li><i class="icon-phone"></i>+ 1235 2355 98</li>
-						<li><i class="icon-envelope"></i><a href="#">info@yoursite.com</a></li>
-						<li><i class="icon-globe2"></i><a href="#">www.yoursite.com</a></li>
+						<li><i class="icon-map-marker"></i>North Ave NW, Atlanta, GA 30332</li>
+						<li><i class="icon-phone"></i>+ 1-678 888 8888</li>
+						<li><i class="icon-envelope"></i><a href="#">info@gtrent.com</a></li>
+						<li><i class="icon-globe2"></i><a href="#">www.gtrent.com</a></li>
 					</ul>
 					<h3 class="section-title">Connect with Us</h3>
 					<ul class="social-media">
