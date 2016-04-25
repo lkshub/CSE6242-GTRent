@@ -17,7 +17,7 @@ var blueicon = {
 var redicon = {
   url:'./images/room_red_48x48.png',
 }
-var testQueryRes=[{"commutingStyle":"driving","commutingTime":"20min","name":"Walton River","address":"2550 Akers Mill Rd SE","lat":33.778016,"lon":-84.399205,"webSite": "www.www.com","zipCode":"30339","floorPlans":[{ "bed":1,"bath":1.0,"price":950,"sqft":800},{ "bed":1,"bath":1.0,"price":1000,"sqft":900 }],"propertyType":"Apartment","crimeScore":90,"foodScore":90,"gasScore":90,"entertainmentScore":90,"cluster":1},{"commutingStyle":"driving","commutingTime":"20min","name":"Walton River2","address":"2550 Akers Mill Rd SE","lat":33.778016,"lon":-84.5,"webSite": "www.www.com","zipCode":"30339","floorPlans":[{ "bed":1,"bath":1.0,"price":950,"sqft":800},{ "bed":1,"bath":1.0,"price":1000,"sqft":900 }],"propertyType":"Apartment","crimeScore":90,"foodScore":90,"gasScore":90,"entertainmentScore":90,"cluster":1}];
+var testQueryRes=[{"commutingStyle":"driving","drivingTime":1200,"name":"Walton River","address":"2550 Akers Mill Rd SE","lat":33.778016,"lon":-84.399205,"webSite": "www.www.com","zipCode":"30339","floorPlans":[{ "bed":1,"bath":1.0,"price":950,"sqft":800},{ "bed":1,"bath":1.0,"price":1000,"sqft":900 }],"propertyType":"Apartment","crimeScore":90,"foodScore":90,"gasScore":90,"entertainmentScore":90,"cluster":1},{"commutingStyle":"driving","commutingTime":"20min","name":"Walton River2","address":"2550 Akers Mill Rd SE","lat":33.778016,"lon":-84.5,"webSite": "www.www.com","zipCode":"30339","floorPlans":[{ "bed":1,"bath":1.0,"price":950,"sqft":800},{ "bed":1,"bath":1.0,"price":1000,"sqft":900 }],"propertyType":"Apartment","crimeScore":90,"foodScore":90,"gasScore":90,"entertainmentScore":90,"cluster":1}];
 function initAutocomplete() {
   var myLatlng = new google.maps.LatLng(33.778016, -84.399205);
   map = new google.maps.Map(document.getElementById('map'), {
@@ -341,7 +341,7 @@ var showDetailWin=function(element){
   thisWin.append(header);
   var recommendDiv = $("<div>").css({"position":"absolute","top":"20px","right":"0px","border-left":" 1px solid lightgrey","width":"50%","height":"95%","overflow-y":"scroll"});
   recommendDiv.attr("id","recommendWin");
-  recommendDiv.append('<div style="width:100%;height:20px;border-bottom: 1px solid lightgrey;"><p style="font-size:10px">Similar properties as follows</p></div>')
+  recommendDiv.append('<div style="width:100%;height:20px;border-bottom: 1px solid lightgrey;"><p style="font-size:10px;text-align:center;">Similar properties as follows</p></div>')
   var recommendData=[];
   testQueryRes.forEach(function(querydata){
     if (data["cluster"]==querydata["cluster"]){
@@ -355,8 +355,8 @@ var showDetailWin=function(element){
   thisWin.append(address2);
   thisWin.append(recommendDiv);
   DrivingTime = $("<p>").text("Driving Time: "+(data["drivingTime"]/60).toString()+"min");
-  WalkingTime = $("<p>").text("Driving Time: "+(data["walkingTime"]/60).toString()+"min");
-  TransitTime = $("<p>").text("Driving Time: "+(data["transitTime"]/60).toString()+"min");
+  WalkingTime = $("<p>").text("Walking Time: "+(data["walkingTime"]/60).toString()+"min");
+  TransitTime = $("<p>").text("Transit Time: "+(data["transitTime"]/60).toString()+"min");
   securityScore = $("<p>").text("Security Score(0-100): "+data["crimeScore"].toString());
   FoodScore = $("<p>").text("Food Score(0-100): "+data["foodScore"].toString());
   GasScore = $("<p>").text("Gas Score(0-100): "+data["gasScore"].toString());
