@@ -111,16 +111,28 @@ var getFilters = function(){
 
     var types = new Array()
     if ($("#Apartment").is(':checked')){
-      types.push("Apartment");
+      types.push(true);
+    }
+    else{
+      types.push(false);
     }
     if ($("#House").is(':checked')){
-      types.push("House");
+      types.push(true);
+    }
+    else{
+      types.push(false);
     }
     if ($("#Condo").is(':checked')){
-      types.push("Condo");
+      types.push(true);
+    }
+    else{
+      types.push(false);
     }
     if ($("#Townhouse").is(':checked')){
-      types.push("Townhouse");
+      types.push(true);
+    }
+    else{
+      types.push(false);
     }
     $("#propertyType-show").text(types[0] + " " + types[1] + " " + types[2] + " " + types[3]);
     var propertyType = types;
@@ -128,19 +140,46 @@ var getFilters = function(){
 
     var life = new Array()
     if ($("#Food").is(':checked')){
-      life.push("Food");
+      life.push(true);
+    }
+    else{
+      life.push(false);
     }
     if ($("#Gas").is(':checked')){
-      life.push("Gas");
+      life.push(true);
+    }
+    else{
+      life.push(false);
     }
     if ($("#Entertainment").is(':checked')){
-      life.push("Entertainment");
+      life.push(true);
+    }
+    else{
+      life.push(false);
     }
     $('#lifeConvenience-show').text(life[0] + " " + life[1] + " " + life[2] + " " + life[3]);
     var lifeCon = life;
     // alert(lifeCon);
 
-    return filter //filter is a json var
+    var filter = [];
+    filter.push({
+      "commutingStyle":"driving",
+      "commutingTimeMin":parseInt(commutingTime[0][0]),
+      "commutingTimeMax":parseInt(commutingTime[0][1]),
+      "bed":parseInt(floorPlan[0][0]),
+      "bath":parseInt(floorPlan[0][1]),
+      "priceMin":parseInt(priceRange[0][0]),
+      "priceMax":parseInt(priceRange[0][1]),
+      "Apartment":propertyType[0],
+      "House":propertyType[1],
+      "Condo":propertyType[2],
+      "Townhouse":propertyType[3],
+      "Food":lifeCon[0],
+      "Gas":lifeCon[1],
+      "Entertainment":lifeCon[2]
+    });
+
+    console.log(filter); //filter is a json var
   }
 
   var addContent = function(dataArray){
@@ -152,7 +191,7 @@ var getFilters = function(){
       console.log(data);
       var location  = new google.maps.LatLng(data["lat"],data["lon"]);
       markers.push( new google.maps.Marker({
-        position: location, 
+        position: location,
         animation: google.maps.Animation.DROP
       }));
       var id="content-"+(index+1).toString();
@@ -238,11 +277,11 @@ $('#apply').click(function(){
   $("#filter").animate({
       width:'0px',
       opacity: 0,
-      
+
   },800)
   $("#filterTag img").removeClass('clicked')
 
-  //queryResult = searchForDetail(getFilters());
+  // queryResult = searchForDetail(getFilters());
   clearMarker();
   $("#content").children("article").remove();
 
@@ -256,6 +295,8 @@ $('#apply').click(function(){
 
 //Sample filter variable sent to Django:
 //{"commutingStyle":"driving",
+ // "commutingTimeMin":"10min",
+ // "commutingTimeMax":"50min",
 //  "bed":1,
 //  "bath":1.0,
 //  "priceMin":0,
@@ -282,12 +323,12 @@ $('#apply').click(function(){
 //  { "bed":1,
 //    "bath":1.0,
 //    "price":950,
-//    "sqft":800,  
+//    "sqft":800,
 //  },
 //  { "bed":1,
 //    "bath":1.0,
 //    "price":1000,
-//    "sqft":900,  
+//    "sqft":900,
 //  }
 //  ]
 //  "propertyType":"Apartment",
