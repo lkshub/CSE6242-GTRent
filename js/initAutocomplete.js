@@ -17,7 +17,7 @@ var blueicon = {
 var redicon = {
   url:'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
 }
-var testQueryRes=[{"commutingStyle":"driving","drivingTime":1200,"name":"Walton River","address":"2550 Akers Mill Rd SE","lat":33.778016,"lon":-84.399205,"webSite": "www.www.com","zipCode":"30339","floorPlans":[{ "bed":1,"bath":1.0,"price":950,"sqft":800},{ "bed":1,"bath":1.0,"price":1000,"sqft":900 }],"propertyType":"Apartment","crimeScore":90,"foodScore":90,"gasScore":90,"entertainmentScore":90,"cluster":1},{"commutingStyle":"driving","commutingTime":"20min","name":"Walton River2","address":"2550 Akers Mill Rd SE","lat":33.778016,"lon":-84.5,"webSite": "www.www.com","zipCode":"30339","floorPlans":[{ "bed":1,"bath":1.0,"price":950,"sqft":800},{ "bed":1,"bath":1.0,"price":1000,"sqft":900 }],"propertyType":"Apartment","crimeScore":90,"foodScore":90,"gasScore":90,"entertainmentScore":90,"cluster":1}];
+var testQueryRes=[{"commutingStyle":"driving","drivingTime":1300,"name":"Walton River","address":"2550 Akers Mill Rd SE","lat":33.778016,"lon":-84.399205,"webSite": "www.www.com","zipCode":"30339","floorPlans":[{ "bed":1,"bath":1.0,"price":950,"sqft":800},{ "bed":1,"bath":1.0,"price":1000,"sqft":900 }],"propertyType":"Apartment","crimeScore":90,"foodScore":90,"gasScore":90,"entertainmentScore":90,"cluster":1},{"commutingStyle":"driving","commutingTime":"20min","name":"Walton River2","address":"2552 Akers Mill Rd SE","lat":33.778016,"lon":-84.5,"webSite": "www.www.com","zipCode":"30339","floorPlans":[{ "bed":1,"bath":1.0,"price":950,"sqft":800},{ "bed":1,"bath":1.0,"price":1000,"sqft":900 }],"propertyType":"Apartment","crimeScore":90,"foodScore":90,"gasScore":90,"entertainmentScore":90,"cluster":1}];
 function initAutocomplete() {
   var myLatlng = new google.maps.LatLng(33.778016, -84.399205);
   map = new google.maps.Map(document.getElementById('map'), {
@@ -206,7 +206,7 @@ var getFilters = function(){
       });
       infowindows.push(infowindow);
       var location  = new google.maps.LatLng(data["lat"],data["lon"]);
-      
+      var idStr = "content-"+(index+1).toString();
 	    var marker = new google.maps.Marker({
         position: location,
         animation: google.maps.Animation.DROP,
@@ -218,10 +218,12 @@ var getFilters = function(){
       marker.addListener('mouseout', function() {
         infowindow.close(map,marker);
       });
+      marker.addListener('click', function() {
+        showDetailWin("content-"+(index+1).toString());
+      });
       markers.push( marker);
-
       var id="content-"+(index+1).toString();
-      var thisArticle = $('<article>').attr({"id":id,"onmouseenter":"focusOn(this)","onmouseleave":"focusOut(this)","onclick":"showDetailWin(this)"});
+      var thisArticle = $('<article>').attr({"id":id,"onmouseenter":"focusOn(this)","onmouseleave":"focusOut(this)","onclick":"showDetailWin(id)"});
       var name = $('<h3>').text(data["name"]);
       var address = $('<p>').text(data["address"]+", "+data["zipCode"]);
       var priceTable=$("<table>");
@@ -251,7 +253,7 @@ var getFilters = function(){
       $.ajax({
           url : "/gtrent", // the endpoint
           type : "GET", // http method
-	  dataType: "json",
+	        dataType: "json",
           data : filter, // data sent with the post request
 
           // handle a successful response
@@ -265,6 +267,7 @@ var getFilters = function(){
           error : function(xhr,errmsg,err) {
               //$('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
               //    " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+              queryResult=testQueryRes;
               console.log("failed"); // provide a bit more info about the error to the console
         }
     });
@@ -300,8 +303,7 @@ $("#hideContent").click(function(){
     });
 
 $('#apply').click(function(){
-   // queryResult=[];
-  
+  $("#content").children("article").remove();
   $("#filter").animate({
       width:'0px',
       opacity: 0,
@@ -318,7 +320,7 @@ $('#apply').click(function(){
     if ($('#content').hasClass('hidden2')){
       showContent();
     }
-  },1000);
+  },500);
   //$("#content").children("article").remove();
   // var filter  = getFilters();
  // waitForQuery($("#content"),queryResult);
@@ -346,11 +348,11 @@ var focusOut=function(element){
   infowindows[id-1].close(map,markers[id-1]);
 }
 
-var showDetailWin=function(element){
-  var id=parseInt(element.id.split("-")[1]);
+var showDetailWin=function(contentid){
+  var id=parseInt(contentid.split("-")[1]);
   var data=queryResult[id-1];
   var thisWin = $('<div>').attr({"id":"detailWin"});
-  thisWin.append('<div style="width:100%;height:20px;border-bottom: 1px solid lightgrey;"><img id="closeDetailWin" onclick=closeDetailWindow() title = "Close" data-toggle="tooltip" src="./images/closeWin.png" data-placement="left" style="position:absolute;height:20px;vertical-align:top;right:5px;cursor:pointer;"></div>')
+  thisWin.append('<div style="width:100%;height:20px;border-bottom: 1px solid lightgrey;"><i id="closeDetailWin" class="material-icons" onclick=closeDetailWindow() title = "Close" data-toggle="tooltip"  data-placement="left" style="position:absolute;height:20px;width:20px;font-size:20px;vertical-align:top;right:5px;cursor:pointer;">clear</i></div>')
   var header =$('<h2>').text(data["name"]);
   thisWin.append(header);
   var recommendDiv = $("<div>").css({"position":"absolute","top":"20px","right":"0px","border-left":" 1px solid lightgrey","width":"50%","height":"95%","overflow-y":"scroll"});
@@ -358,7 +360,7 @@ var showDetailWin=function(element){
   recommendDiv.append('<div style="width:100%;height:20px;border-bottom: 1px solid lightgrey;"><p style="font-size:10px;text-align:center;">Similar properties as follows</p></div>')
   var recommendData=[];
   queryResult.forEach(function(querydata){
-    if (data["cluster"]==querydata["cluster"]){
+    if ((data["cluster"]==querydata["cluster"])&&(data["address"]!=querydata["address"])){
       recommendData.push(querydata);
     }
   })
@@ -368,13 +370,13 @@ var showDetailWin=function(element){
   var address2 =$('<h3>').text(data["zipCode"]+", GA");
   thisWin.append(address2);
   thisWin.append(recommendDiv);
-  DrivingTime = $("<p>").text("Driving Time: "+(data["drivingTime"]/60).toString()+"min");
-  WalkingTime = $("<p>").text("Walking Time: "+(data["walkingTime"]/60).toString()+"min");
-  TransitTime = $("<p>").text("Transit Time: "+(data["transitTime"]/60).toString()+"min");
-  securityScore = $("<p>").text("Security Score(0-100): "+data["crimeScore"].toString());
-  FoodScore = $("<p>").text("Food Score(0-100): "+data["foodScore"].toString());
-  GasScore = $("<p>").text("Gas Score(0-100): "+data["gasScore"].toString());
-  EntertainmentScore = $("<p>").text("Entertainment Score(0-100): "+data["entertainmentScore"].toString());
+  DrivingTime = $("<p>").text("Driving Time: "+parseInt(data["drivingTime"]/60).toString()+"min");
+  WalkingTime = $("<p>").text("Walking Time: "+parseInt(data["walkingTime"]/60).toString()+"min");
+  TransitTime = $("<p>").text("Transit Time: "+parseInt(data["transitTime"]/60).toString()+"min");
+  securityScore = $("<p>").text("Security Score(0-100): "+parseInt(data["crimeScore"]).toString());
+  FoodScore = $("<p>").text("Food Score(0-100): "+parseInt(data["foodScore"]).toString());
+  GasScore = $("<p>").text("Gas Score(0-100): "+parseInt(data["gasScore"]).toString());
+  EntertainmentScore = $("<p>").text("Entertainment Score(0-100): "+parseInt(data["entertainmentScore"]).toString());
   thisWin.append(DrivingTime);
   thisWin.append(WalkingTime);
   thisWin.append(TransitTime);
@@ -387,16 +389,6 @@ var showDetailWin=function(element){
 
 var closeDetailWindow=function(){
   $('#detailWin').remove();
-}
-var waitForQuery=function(content,table){
-console.log(queryResult);   
- if (table.length==0){
-	setTimeout(function(){waitForQuery(content,table);},1000);
-
-}
-else{
-    addContent(content,table);
-}
 }
 
 //Sample filter variable sent to Django:
