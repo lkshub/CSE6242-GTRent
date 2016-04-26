@@ -8,14 +8,14 @@
 var map;
 var markers=[];
 var infowindows=[];
-var queryResult=[];
+var queryResult;
 var mapCenter;
 var mapZoom=12;
 var blueicon = {
-        url:'./images/room_blue_36x36.png',
+        url:'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
       }
 var redicon = {
-  url:'./images/room_red_48x48.png',
+  url:'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
 }
 var testQueryRes=[{"commutingStyle":"driving","drivingTime":1200,"name":"Walton River","address":"2550 Akers Mill Rd SE","lat":33.778016,"lon":-84.399205,"webSite": "www.www.com","zipCode":"30339","floorPlans":[{ "bed":1,"bath":1.0,"price":950,"sqft":800},{ "bed":1,"bath":1.0,"price":1000,"sqft":900 }],"propertyType":"Apartment","crimeScore":90,"foodScore":90,"gasScore":90,"entertainmentScore":90,"cluster":1},{"commutingStyle":"driving","commutingTime":"20min","name":"Walton River2","address":"2550 Akers Mill Rd SE","lat":33.778016,"lon":-84.5,"webSite": "www.www.com","zipCode":"30339","floorPlans":[{ "bed":1,"bath":1.0,"price":950,"sqft":800},{ "bed":1,"bath":1.0,"price":1000,"sqft":900 }],"propertyType":"Apartment","crimeScore":90,"foodScore":90,"gasScore":90,"entertainmentScore":90,"cluster":1}];
 function initAutocomplete() {
@@ -24,7 +24,7 @@ function initAutocomplete() {
     center: myLatlng,
     zoom: 12,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
-    //scrollwheel: false,
+    scrollwheel: false,
     //scaleControl: false,
     disableDoubleClickZoom: true,
     styles: [{"featureType":"administrative.land_parcel","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"landscape.man_made","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"poi","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"simplified"},{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"hue":"#f49935"}]},{"featureType":"road.highway","elementType":"labels","stylers":[{"visibility":"simplified"}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"hue":"#fad959"}]},{"featureType":"road.arterial","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"visibility":"simplified"}]},{"featureType":"road.local","elementType":"labels","stylers":[{"visibility":"simplified"}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"all","stylers":[{"hue":"#a1cdfc"},{"saturation":30},{"lightness":49}]}]
@@ -195,7 +195,9 @@ var getFilters = function(){
   var addContent = function(content,dataArray){
     var latsum=0;
     var lonsum=0;
-    dataArray.forEach(function(data,index){
+      console.log(dataArray);
+      dataArray.forEach(function(data,index){
+      console.log(index);
       latsum=latsum+data["lat"];
       lonsum=lonsum+data["lon"];
       //console.log(data);
@@ -204,7 +206,8 @@ var getFilters = function(){
       });
       infowindows.push(infowindow);
       var location  = new google.maps.LatLng(data["lat"],data["lon"]);
-      var marker = new google.maps.Marker({
+      
+	    var marker = new google.maps.Marker({
         position: location,
         animation: google.maps.Animation.DROP,
         icon:blueicon
@@ -216,6 +219,7 @@ var getFilters = function(){
         infowindow.close(map,marker);
       });
       markers.push( marker);
+
       var id="content-"+(index+1).toString();
       var thisArticle = $('<article>').attr({"id":id,"onmouseenter":"focusOn(this)","onmouseleave":"focusOut(this)","onclick":"showDetailWin(this)"});
       var name = $('<h3>').text(data["name"]);
@@ -243,7 +247,7 @@ var getFilters = function(){
 
   var searchForDetail = function(filter){ //The input is a json file
     console.log("create post is working!") // sanity check
-    var results=[];
+   // var result = [];
       $.ajax({
           url : "/gtrent", // the endpoint
           type : "GET", // http method
@@ -255,7 +259,7 @@ var getFilters = function(){
               //$('#post-text').val(''); // remove the value from the input
               console.log(json); // log the returned json to the console
               console.log("success"); // another sanity check
-              results = json;
+              queryResult=json;
           },
           // handle a non-successful response
           error : function(xhr,errmsg,err) {
@@ -264,7 +268,7 @@ var getFilters = function(){
               console.log("failed"); // provide a bit more info about the error to the console
         }
     });
-    return results;
+    //return result;
   }
   var hideContent=function(){
 
@@ -296,9 +300,8 @@ $("#hideContent").click(function(){
     });
 
 $('#apply').click(function(){
-  if ($('#content').hasClass('hidden2')){
-    showContent();
-  }
+   // queryResult=[];
+  
   $("#filter").animate({
       width:'0px',
       opacity: 0,
@@ -306,13 +309,22 @@ $('#apply').click(function(){
   },800)
   $("#filterTag img").removeClass('clicked')
 
-  queryResult = searchForDetail(getFilters());
+  searchForDetail(getFilters());
   clearMarker();
-  $("#content").children("article").remove();
+  setTimeout(function(){
+    addContent($("#content"),queryResult);
+    setMapOnAll(map);
+    map.panTo(mapCenter);
+    if ($('#content').hasClass('hidden2')){
+      showContent();
+    }
+  },1000);
+  //$("#content").children("article").remove();
   // var filter  = getFilters();
-  addContent($("#content"),queryResult);
-  setMapOnAll(map);
-  map.panTo(mapCenter);
+ // waitForQuery($("#content"),queryResult);
+    //addContent($("#content"),searchForDetail(getFilters()));
+  
+ 
 })
 var focusOn=function(element){
   console.log("over");
@@ -336,7 +348,7 @@ var focusOut=function(element){
 
 var showDetailWin=function(element){
   var id=parseInt(element.id.split("-")[1]);
-  var data=testQueryRes[id-1];
+  var data=queryResult[id-1];
   var thisWin = $('<div>').attr({"id":"detailWin"});
   thisWin.append('<div style="width:100%;height:20px;border-bottom: 1px solid lightgrey;"><img id="closeDetailWin" onclick=closeDetailWindow() title = "Close" data-toggle="tooltip" src="./images/closeWin.png" data-placement="left" style="position:absolute;height:20px;vertical-align:top;right:5px;cursor:pointer;"></div>')
   var header =$('<h2>').text(data["name"]);
@@ -376,7 +388,16 @@ var showDetailWin=function(element){
 var closeDetailWindow=function(){
   $('#detailWin').remove();
 }
+var waitForQuery=function(content,table){
+console.log(queryResult);   
+ if (table.length==0){
+	setTimeout(function(){waitForQuery(content,table);},1000);
 
+}
+else{
+    addContent(content,table);
+}
+}
 
 //Sample filter variable sent to Django:
 //{"commutingStyle":"driving",
