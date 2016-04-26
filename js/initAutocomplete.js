@@ -320,7 +320,7 @@ $('#apply').click(function(){
     if ($('#content').hasClass('hidden2')){
       showContent();
     }
-  },500);
+  },1000);
   //$("#content").children("article").remove();
   // var filter  = getFilters();
  // waitForQuery($("#content"),queryResult);
