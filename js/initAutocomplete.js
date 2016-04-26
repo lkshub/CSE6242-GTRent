@@ -355,7 +355,7 @@ var showDetailWin=function(contentid){
   thisWin.append('<div style="width:100%;height:20px;border-bottom: 1px solid lightgrey;"><i id="closeDetailWin" class="material-icons" onclick=closeDetailWindow() title = "Close" data-toggle="tooltip"  data-placement="left" style="position:absolute;height:20px;width:20px;font-size:20px;vertical-align:top;right:5px;cursor:pointer;">clear</i></div>')
   var header =$('<h2>').text(data["name"]);
   thisWin.append(header);
-  var recommendDiv = $("<div>").css({"position":"absolute","top":"20px","right":"0px","border-left":" 1px solid lightgrey","width":"50%","height":"95%","overflow-y":"scroll"});
+  var recommendDiv = $("<div>").css({"position":"absolute","top":"20px","right":"0px","border-left":" 1px solid lightgrey","width":"300px","height":"95%","overflow-y":"scroll"});
   recommendDiv.attr("id","recommendWin");
   recommendDiv.append('<div style="width:100%;height:20px;border-bottom: 1px solid lightgrey;"><p style="font-size:10px;text-align:center;">Similar properties as follows</p></div>')
   var recommendData=[];
@@ -364,7 +364,7 @@ var showDetailWin=function(contentid){
       recommendData.push(querydata);
     }
   })
-  var detailDiv = $("<div>").css({"position":"absolute","top":"20px","left":"0px","width":"50%","height":"95%","overflow":"hidden"});
+  var detailDiv = $("<div>").css({"position":"absolute","top":"20px","left":"0px","width":"400px","height":"95%","overflow":"hidden"});
   addContent(recommendDiv,recommendData);
   var address1 =$('<h3>').text(data["address"]+", "+data["zipCode"]);
   detailDiv.append(address1);
