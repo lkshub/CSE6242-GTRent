@@ -364,11 +364,12 @@ var showDetailWin=function(contentid){
       recommendData.push(querydata);
     }
   })
+  var detailDiv = $("<div>").css({"position":"absolute","top":"20px","left":"0px","width":"50%","height":"95%","overflow":"hidden"});
   addContent(recommendDiv,recommendData);
-  var address1 =$('<h3>').text(data["address"]);
-  thisWin.append(address1);
-  var address2 =$('<h3>').text(data["zipCode"]+", GA");
-  thisWin.append(address2);
+  var address1 =$('<h3>').text(data["address"]+", "+data["zipCode"]);
+  detailDiv.append(address1);
+  //var address2 =$('<h3>').text(data["zipCode"]+", GA");
+  //detailDiv.append(address2);
   thisWin.append(recommendDiv);
   DrivingTime = $("<p>").text("Driving Time: "+parseInt(data["drivingTime"]/60).toString()+"min");
   WalkingTime = $("<p>").text("Walking Time: "+parseInt(data["walkingTime"]/60).toString()+"min");
@@ -377,13 +378,14 @@ var showDetailWin=function(contentid){
   FoodScore = $("<p>").text("Food Score(0-100): "+parseInt(data["foodScore"]).toString());
   GasScore = $("<p>").text("Gas Score(0-100): "+parseInt(data["gasScore"]).toString());
   EntertainmentScore = $("<p>").text("Entertainment Score(0-100): "+parseInt(data["entertainmentScore"]).toString());
-  thisWin.append(DrivingTime);
-  thisWin.append(WalkingTime);
-  thisWin.append(TransitTime);
-  thisWin.append(securityScore);
-  thisWin.append(FoodScore);
-  thisWin.append(GasScore);
-  thisWin.append(EntertainmentScore);
+  detailDiv.append(DrivingTime);
+  detailDiv.append(WalkingTime);
+  detailDiv.append(TransitTime);
+  detailDiv.append(securityScore);
+  detailDiv.append(FoodScore);
+  detailDiv.append(GasScore);
+  detailDiv.append(EntertainmentScore);
+  thisWin.append(detailDiv);
   $('#exploreContent').append(thisWin);
 }
 
