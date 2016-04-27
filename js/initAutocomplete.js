@@ -8,6 +8,7 @@
 var map;
 var markers=[];
 var infowindows=[];
+var filter={};
 var queryResult;
 var mapCenter;
 var mapZoom=12;
@@ -17,7 +18,7 @@ var blueicon = {
 var redicon = {
   url:'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
 }
-var testQueryRes=[{"commutingStyle":"driving","drivingTime":1300,"name":"Walton River","address":"2550 Akers Mill Rd SE","lat":33.778016,"lon":-84.399205,"webSite": "www.www.com","zipCode":"30339","floorPlans":[{ "bed":1,"bath":1.0,"price":950,"sqft":800},{ "bed":1,"bath":1.0,"price":1000,"sqft":900 }],"propertyType":"Apartment","crimeScore":90,"foodScore":90,"gasScore":90,"entertainmentScore":90,"cluster":1},{"commutingStyle":"driving","commutingTime":"20min","name":"Walton River2","address":"2552 Akers Mill Rd SE","lat":33.778016,"lon":-84.5,"webSite": "www.www.com","zipCode":"30339","floorPlans":[{ "bed":1,"bath":1.0,"price":950,"sqft":800},{ "bed":1,"bath":1.0,"price":1000,"sqft":900 }],"propertyType":"Apartment","crimeScore":90,"foodScore":90,"gasScore":90,"entertainmentScore":90,"cluster":1}];
+var testQueryRes=[{"commutingStyle":"driving","drivingTime":1300,"name":"Walton adasdasdaasdasdasdasdasRiver","address":"2550 Akers Miadsdasdasdasdasdasdasdll Rd SE","lat":33.778016,"lon":-84.399205,"webSite": "http://www.google.com","zipCode":"30339","floorPlans":[{ "bed":1,"bath":1.0,"price":800,"sqft":800},{ "bed":1,"bath":1.0,"price":1000,"sqft":900 }],"propertyType":"Apartment","crimeScore":90,"foodScore":90,"gasScore":91,"entertainmentScore":90,"cluster":1},{"commutingStyle":"driving","commutingTime":"20min","name":"Walton River2","address":"2552 Akers Mill Rd SE","lat":33.778016,"lon":-84.5,"webSite": "http://www.google.com","zipCode":"30339","floorPlans":[{ "bed":1,"bath":1.0,"price":950,"sqft":800},{ "bed":1,"bath":1.0,"price":1000,"sqft":900 }],"propertyType":"Apartment","crimeScore":90,"foodScore":91,"gasScore":90,"entertainmentScore":90,"cluster":1}];
 function initAutocomplete() {
   var myLatlng = new google.maps.LatLng(33.778016, -84.399205);
   map = new google.maps.Map(document.getElementById('map'), {
@@ -93,6 +94,7 @@ function setMapOnAll(map) {
 function clearMarker(){
   setMapOnAll(null);
   markers=[];
+  infowindows=[];
 }
 var getFilters = function(){
     if ($("#Driving").hasClass('choosed')){
@@ -192,54 +194,90 @@ var getFilters = function(){
     return filter;
   }
 
-  var addContent = function(content,dataArray){
+  var addContent = function(content,dataArray,indexChange){
     var latsum=0;
     var lonsum=0;
-      console.log(dataArray);
+    var numOfRecord = dataArray.length;
+    var topText="";
+    if(indexChange.length==0){
+      if (numOfRecord>1){
+        topText = "We have "+numOfRecord.toString()+" results for you:";
+      }
+      else if(numOfRecord==1){
+        topText="We have only "+numOfRecord.toString()+" result for you:";
+      }else{
+        topText="Sorry, no property available.";
+      }
+    }
+    else{
+      if (numOfRecord>1){
+        topText = "Similar "+numOfRecord.toString()+" properties are as follows:";
+      }
+      else if(numOfRecord==1){
+        topText="Similar "+numOfRecord.toString()+" property is as follows:";
+      }else{
+        topText="Sorry, no similar property available.";
+      }
+      
+    }
+    var secondBar=$("<div id='resultNum'>").css({'width':'100%','height':'20px','border-bottom':'1px solid lightgrey'});
+    $("<p>").css({'font-size':'14px','text-align':'left',"margin-left":'10px'}).text(topText).prependTo(secondBar);
+    secondBar.appendTo(content);
       dataArray.forEach(function(data,index){
-      console.log(index);
       latsum=latsum+data["lat"];
       lonsum=lonsum+data["lon"];
-      //console.log(data);
-      var infowindow = new google.maps.InfoWindow({
-        content: data["name"],
-      });
-      infowindows.push(infowindow);
-      var location  = new google.maps.LatLng(data["lat"],data["lon"]);
-      var idStr = "content-"+(index+1).toString();
-	    var marker = new google.maps.Marker({
-        position: location,
-        animation: google.maps.Animation.DROP,
-        icon:blueicon
-      })
-      marker.addListener('mouseover', function() {
-        infowindow.open(map, marker);
-      });
-      marker.addListener('mouseout', function() {
-        infowindow.close(map,marker);
-      });
-      marker.addListener('click', function() {
-        showDetailWin("content-"+(index+1).toString());
-      });
-      markers.push( marker);
-      var id="content-"+(index+1).toString();
-      var thisArticle = $('<article>').attr({"id":id,"onmouseenter":"focusOn(this)","onmouseleave":"focusOut(this)","onclick":"showDetailWin(id)"});
+      if(indexChange.length==0){
+        var idIndex = index+1;
+        var idStr = "content-"+idIndex.toString();
+        var lowPrice=100000;
+        data["floorPlans"].forEach(function(plan){
+        if((plan["bed"]==filter["bed"])&&(plan["bath"]==filter["bath"])){
+          if (lowPrice>plan["price"]){lowPrice=plan["price"]}
+        }});
+        var infowindow = new google.maps.InfoWindow({
+          content: "<div style='max-width:200px;height:auto;overflow:hidden;'>"+"<h4 style='font-size:14px;line-height:100%;margin:2px'>"+data["name"]+"</h4>"+"<p style='margin:0px;font-size:12px'>$"+lowPrice.toString()+"+</p></div>",
+        });
+        infowindows.push(infowindow);
+        var location  = new google.maps.LatLng(data["lat"],data["lon"]);
+        var marker = new google.maps.Marker({
+          position: location,
+          animation: google.maps.Animation.DROP,
+          icon:blueicon,
+          title: data["name"]
+        })
+        marker.addListener('mouseover', function() {
+          infowindow.open(map, marker);
+          marker.setIcon(redicon);
+        });
+        
+        marker.addListener('mouseout', function() {
+          infowindow.close(map,marker);
+          marker.setIcon(blueicon);
+        });
+        marker.addListener('click', function() {
+          showDetailWin(idStr);
+        });
+        markers.push(marker);
+      }
+      else{
+        var idIndex = 1+indexChange[index];
+        var idStr = "content-"+idIndex.toString();
+      }
+      var thisArticle = $('<article>').attr({"id":idStr,"onmouseenter":"focusOn(this)","onmouseleave":"focusOut(this)","onclick":"showDetailWin(id)"});
       var name = $('<h3>').text(data["name"]);
       var address = $('<p>').text(data["address"]+", "+data["zipCode"]);
       var priceTable=$("<table>");
       data["floorPlans"].forEach(function(plan){
-        var list = $("<tr>");
-        $('<th>').text(plan["bed"]+" Bedrooms").appendTo(list);
-        $('<th>').text(plan["bath"]+" Bath").appendTo(list);
-        $('<th>').text("$"+plan["price"].toString()).appendTo(list);
-        $('<th>').text(plan["sqft"].toString()+" Sqft").appendTo(list);
-        list.appendTo(priceTable);
+        if((plan["bed"]==filter["bed"])&&(plan["bath"]==filter["bath"])){
+          var list = $("<tr>");
+          $('<th>').text(plan["bed"]+" Bedrooms").appendTo(list);
+          $('<th>').text(plan["bath"]+" Bath").appendTo(list);
+          $('<th>').text("$"+plan["price"].toString()).appendTo(list);
+          $('<th>').text(plan["sqft"].toString()+" Sqft").appendTo(list);
+          list.appendTo(priceTable);
+        }
       })
       priceTable.appendTo(thisArticle);
-      var link = $("<a>").text("Listing on Zillow.com");
-      link.attr("herf",data["webSite"]);
-      var website = $("<p>").append(link);
-      thisArticle.append(website);
       thisArticle.prepend(address);
       thisArticle.prepend(name);
       content.append(thisArticle);
@@ -259,7 +297,23 @@ var getFilters = function(){
           // handle a successful response
           success : function(json) {
               //$('#post-text').val(''); // remove the value from the input
-              console.log(json); // log the returned json to the console
+              json.sort(function(a,b){ 
+                var aScore = a["crimeScore"]
+                var bScore = b["crimeScore"]
+                if (filter["Gas"]){
+                  aScore+=a["gasScore"];
+                  bScore+=b["gasScore"];
+                }
+                if (filter["Entertainment"]){
+                  aScore+=a["entertainmentScore"];
+                  bScore+=b["entertainmentScore"];
+                }
+                if (filter["Food"]){
+                  aScore+=a["foodScore"];
+                  bScore+=b["foodScore"];
+                }
+                return bScore-aScore;})
+              //console.log(json); // log the returned json to the console
               console.log("success"); // another sanity check
               queryResult=json;
           },
@@ -268,6 +322,30 @@ var getFilters = function(){
               //$('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
               //    " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
               queryResult=testQueryRes;
+              queryResult.sort(function(a,b){ 
+                var aScore = a["crimeScore"]
+                var bScore = b["crimeScore"]
+                if (filter["Gas"]){
+                  aScore+=a["gasScore"];
+                  bScore+=b["gasScore"];
+                  console.log("gas!")
+                }
+                if (filter["Entertainment"]){
+                  aScore+=a["entertainmentScore"];
+                  bScore+=b["entertainmentScore"];
+                  console.log("en!")
+
+                }
+                if (filter["Food"]){
+                  aScore+=a["foodScore"];
+                  bScore+=b["foodScore"];
+                  console.log("food!")
+
+                }
+                //console.log(aScore,bScore)
+                return bScore-aScore;})
+                //console.log(testQueryRes);
+
               console.log("failed"); // provide a bit more info about the error to the console
         }
     });
@@ -303,7 +381,7 @@ $("#hideContent").click(function(){
     });
 
 $('#apply').click(function(){
-  $("#content").children("article").remove();
+  $("#content").children("article,#resultNum").remove();
   $("#filter").animate({
       width:'0px',
       opacity: 0,
@@ -311,10 +389,11 @@ $('#apply').click(function(){
   },800)
   $("#filterTag img").removeClass('clicked')
 
-  searchForDetail(getFilters());
+  filter=getFilters();
+  searchForDetail(filter);
   clearMarker();
   setTimeout(function(){
-    addContent($("#content"),queryResult);
+    addContent($("#content"),queryResult,[]);
     setMapOnAll(map);
     map.panTo(mapCenter);
     if ($('#content').hasClass('hidden2')){
@@ -329,7 +408,7 @@ $('#apply').click(function(){
  
 })
 var focusOn=function(element){
-  console.log("over");
+  //console.log("over");
   $(element).parent("div").css("opacity","0.8");
   $("#detailWin").css("opacity","0.5");
   $(element).addClass("focused");
@@ -339,7 +418,7 @@ var focusOn=function(element){
   map.panTo(markers[id-1].position);
 }
 var focusOut=function(element){
-  console.log("out");
+  //console.log("out");
   $(element).parent("div").css("opacity","1");
   $("#detailWin").css("opacity","1");
   $(element).removeClass("focused");
@@ -349,28 +428,44 @@ var focusOut=function(element){
 }
 
 var showDetailWin=function(contentid){
+  $('#detailWin').remove();
   var id=parseInt(contentid.split("-")[1]);
   var data=queryResult[id-1];
   var thisWin = $('<div>').attr({"id":"detailWin"});
   thisWin.append('<div style="width:100%;height:20px;border-bottom: 1px solid lightgrey;"><i id="closeDetailWin" class="material-icons" onclick=closeDetailWindow() title = "Close" data-toggle="tooltip"  data-placement="left" style="position:absolute;height:20px;width:20px;font-size:20px;vertical-align:top;right:5px;cursor:pointer;">clear</i></div>')
   var header =$('<h2>').text(data["name"]);
-  thisWin.append(header);
+  //thisWin.append(header);
   var recommendDiv = $("<div>").css({"position":"absolute","top":"20px","right":"0px","border-left":" 1px solid lightgrey","width":"300px","height":"95%","overflow-y":"scroll"});
   recommendDiv.attr("id","recommendWin");
-  recommendDiv.append('<div style="width:100%;height:20px;border-bottom: 1px solid lightgrey;"><p style="font-size:10px;text-align:center;">Similar properties as follows</p></div>')
+  //recommendDiv.append('<div style="width:100%;height:20px;border-bottom: 1px solid lightgrey;"><p style="font-size:14px;text-align:center;">Similar properties as follows</p></div>')
   var recommendData=[];
-  queryResult.forEach(function(querydata){
+  var indexChange=[]
+  queryResult.forEach(function(querydata,index){
     if ((data["cluster"]==querydata["cluster"])&&(data["address"]!=querydata["address"])){
       recommendData.push(querydata);
+      indexChange.push(index);
     }
   })
-  var detailDiv = $("<div>").css({"position":"absolute","top":"20px","left":"0px","width":"400px","height":"95%","overflow":"hidden"});
-  addContent(recommendDiv,recommendData);
+  var detailDiv = $("<div>").css({"padding-bottom":"20px","position":"absolute","top":"20px","left":"0px","width":"400px","height":"95%","overflow-y":"scroll","overflow-x":"hidden","word-wrap": "break-word" ,"word-break": "normal" });
+  detailDiv.append(header);
+  addContent(recommendDiv,recommendData,indexChange);
   var address1 =$('<h3>').text(data["address"]+", "+data["zipCode"]);
   detailDiv.append(address1);
   //var address2 =$('<h3>').text(data["zipCode"]+", GA");
   //detailDiv.append(address2);
   thisWin.append(recommendDiv);
+  /*
+  var priceTable=$("<table>");
+      data["floorPlans"].forEach(function(plan){
+        var list = $("<tr>");
+        $('<th>').text(plan["bed"]+" Bedrooms").appendTo(list);
+        $('<th>').text(plan["bath"]+" Bath").appendTo(list);
+        $('<th>').text("$"+plan["price"].toString()).appendTo(list);
+        $('<th>').text(plan["sqft"].toString()+" Sqft").appendTo(list);
+        list.appendTo(priceTable);
+      })
+  priceTable.appendTo(detailDiv);
+  */
   DrivingTime = $("<p>").text("Driving Time: "+parseInt(data["drivingTime"]/60).toString()+"min");
   WalkingTime = $("<p>").text("Walking Time: "+parseInt(data["walkingTime"]/60).toString()+"min");
   TransitTime = $("<p>").text("Transit Time: "+parseInt(data["transitTime"]/60).toString()+"min");
@@ -385,7 +480,14 @@ var showDetailWin=function(contentid){
   detailDiv.append(FoodScore);
   detailDiv.append(GasScore);
   detailDiv.append(EntertainmentScore);
+  var link = $("<a>").text("See the listing on Zillow.com");
+  link.attr({"href":data["webSite"],'target':"_blank"});
+  link.css("cursor","pointer");
+  var website = $("<p>").append(link);
+  detailDiv.append(website);
   thisWin.append(detailDiv);
+
+
   $('#exploreContent').append(thisWin);
 }
 
