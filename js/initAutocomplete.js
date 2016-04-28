@@ -71,7 +71,7 @@ function initAutocomplete() {
       // Create a marker for each place.
       markers.push(new google.maps.Marker({
         map: map,
-        icon: icon,
+        icon: redicon,
         title: place.name,
         position: place.geometry.location
       }));
@@ -84,6 +84,10 @@ function initAutocomplete() {
       }
     });
     map.fitBounds(bounds);
+    map.setZoom(13);
+    $('html, body').animate({
+                scrollTop: $('[data-section="' + "explore" + '"]').offset().top - 55
+            }, 500);
   });
 }
 function setMapOnAll(map) {
