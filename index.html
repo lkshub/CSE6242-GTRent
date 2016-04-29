@@ -237,7 +237,7 @@
 				</div>
 			</div>
 		</div>
-	</section>>
+	</section>
 
 	<section id="fh5co-services" data-section="services">
 		<div class="fh5co-services">
@@ -252,15 +252,19 @@
 						</div>
 					</div>
 				</div>
+
+
 				<div class="row">
 					<div class="col-md-4">
 						<div class="box-services">
 							<i class="icon-chemistry to-animate-2"></i>
 							<div class="fh5co-post to-animate">
 								<h3>Property Data Scraping from Zillow.com</h3>
-								<p>Due to the limitation of Google API and Zillow API, we have switched to use the data scraped from Zillow website directly with Python. We utilized Zillow search engine and requested URLs. We then encoded the webpage and collected the name, coordinates, address, type and link for each property.By doing in this way, information of all the rental properties within I-285 highway have been acquired by going through all compatible zipcodes.</p>
+								<p>We used the urllib2 module from python and requested the related rental information from Zillow.com by going through all compatible zipcodes within I-285 highway. We then encoded the webpage and collected the name, coordinates, address, type and link for each property.</p>
 							</div>
 						</div>
+					</div>
+					<div class="col-md-4">
 						<div class="box-services">
 							<i class="icon-paper-plane to-animate-2"></i>
 							<div class="fh5co-post to-animate">
@@ -274,14 +278,20 @@
 							<i class="icon-trophy to-animate-2"></i>
 							<div class="fh5co-post to-animate">
 								<h3>Life Convenience Evaluation with Yelp API </h3>
-								<p>Data for convenience evaluation is downloaded from Yelp API. Every estate property is chosen as a searching center. Several category data has been involved to evaluate the convenience around the searching center. All the data that we gather will be stored as JSON files. Besides, every estate property will be given a yelp_grade which represent the level of convenience for this property. The following formulas are our basic evaluating standard.</p>
+								<p>Data for convenience evaluation is downloaded from Yelp API. Every estate property is chosen as a searching center. Several category data has been involved to evaluate the convenience around the searching center. Besides, every estate property will be given a yelp_grade which represent the level of convenience for this property.</p>
 							</div>
 						</div>
+					</div>
+				</div>
+
+
+				<div class="row">
+					<div class="col-md-4">
 						<div class="box-services">
 							<i class="icon-energy to-animate-2"></i>
 							<div class="fh5co-post to-animate">
 								<h3>Property Data Cleaning with OpenRefine</h3>
-								<p>Since data from Zillow.com does not have an uniform return for each request. The original data we scraped had many duplicates and blank tuples. So we utilized OpenRefine to get rid of all the dirty tuples. Finally the number of rental properties result we obtained is 1098, and all those properties are located within  I-285 highway in Atlanta.</p>
+								<p>Since data from Zillow.com does not have an uniform return for each request. The original data we scraped had many duplicates and blank tuples. So we utilized OpenRefine to get rid of all the dirty tuples. Finally the number of rental properties result we obtained is 1098, and all those properties are located within I-285 highway in Atlanta.</p>
 							</div>
 						</div>
 					</div>
@@ -290,14 +300,16 @@
 							<i class="icon-people to-animate-2"></i>
 							<div class="fh5co-post to-animate">
 								<h3>Local Crime Data Collection</h3>
-								<p> Local crime data are downloaded from Atlanta Police Department and scraped from crimemapping.com. We use the population by zip code to normalize crime rate, and give a crime score of certain address with crime reports number divided by population within I-285 area. Because the relationship between property price and distance from offender is within 0.15 miles, that means there’s no impact when people choosing a house more than 0.15 miles from the offender’s location.</p>
+								<p> Local crime data are downloaded from Atlanta Police Department and scraped from crimemapping.com. We use the population by zip code to normalize crime rate, and give a crime score of certain address with crime reports number divided by population within I-285 area.</p>
 							</div>
 						</div>
+					</div>
+					<div class="col-md-4">
 						<div class="box-services">
 							<i class="icon-screen-desktop to-animate-2"></i>
 							<div class="fh5co-post to-animate">
-								<h3>Looks Amazing on Devices</h3>
-								<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in.</p>
+								<h3>Interactive Visualization</h3>
+								<p>Introducing Google Maps JavaScript API, we build a web application enabling users easily interact with our database, by sending filters to Django and elegantly visualizing the data returned from backend with Ajax, jQuery, D3.js and so on.</p>
 							</div>
 						</div>
 					</div>
@@ -315,7 +327,7 @@
 						<h2 class="to-animate">Meet The Team</h2>
 						<div class="row">
 							<div class="col-md-8 col-md-offset-2 subtext">
-								<h3 class="to-animate">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove. </h3>
+								<h3 class="to-animate text-center">Every person on our staff is committed to providing you with the best possible customer service and the highest-quality products. </h3>
 							</div>
 						</div>
 					</div>
@@ -324,7 +336,7 @@
 				<div id="teamMember" class="row">
 					<div class="col-md-2 col-md-offset-1">
 						<div class="team-box text-center to-animate-2">
-							<div class="user"><img class="img-reponsive" src="images/person5.jpg" alt="Roger Garfield"></div>
+							<div class="user"><img class="img-reponsive" src="images/person5.jpg" alt="Jiahao Luo"></div>
 							<h3>Jiahao Luo</h3>
 							<span class="position">Developer</span>
 							<p>Hello World!</p>
@@ -340,10 +352,10 @@
 
 					<div class="col-md-2">
 						<div class="team-box text-center to-animate-2">
-							<div class="user"><img class="img-reponsive" src="images/person2.jpg" alt="Roger Garfield"></div>
-							<h3>Kevin Steve</h3>
+							<div class="user"><img class="img-reponsive" src="images/person2.jpg" alt="Qi Ge"></div>
+							<h3>Qi Ge</h3>
 							<span class="position">Co-Founder, Product Designer</span>
-							<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+							<p>Far far away, behind the word mountains</p>
 							<ul class="social-media">
 								<li><a href="#" class="facebook"><i class="icon-facebook"></i></a></li>
 								<li><a href="#" class="twitter"><i class="icon-twitter"></i></a></li>
@@ -356,10 +368,10 @@
 
 					<div class="col-md-2">
 						<div class="team-box text-center to-animate-2">
-							<div class="user"><img class="img-reponsive" src="images/person2.jpg" alt="Roger Garfield"></div>
-							<h3>Kevin Steve</h3>
+							<div class="user"><img class="img-reponsive" src="images/person2.jpg" alt="Kai Lu"></div>
+							<h3>Kai Lu</h3>
 							<span class="position">Co-Founder, Product Designer</span>
-							<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+							<p>Far far away, behind the word mountains</p>
 							<ul class="social-media">
 								<li><a href="#" class="facebook"><i class="icon-facebook"></i></a></li>
 								<li><a href="#" class="twitter"><i class="icon-twitter"></i></a></li>
@@ -372,10 +384,10 @@
 
 					<div class="col-md-2">
 						<div class="team-box text-center to-animate-2">
-							<div class="user"><img class="img-reponsive" src="images/person2.jpg" alt="Roger Garfield"></div>
-							<h3>Kevin Steve</h3>
+							<div class="user"><img class="img-reponsive" src="images/person2.jpg" alt="Shuo Huang"></div>
+							<h3>Shuo Huang</h3>
 							<span class="position">Co-Founder, Product Designer</span>
-							<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+							<p>Far far away, behind the word mountains</p>
 							<ul class="social-media">
 								<li><a href="#" class="facebook"><i class="icon-facebook"></i></a></li>
 								<li><a href="#" class="twitter"><i class="icon-twitter"></i></a></li>
@@ -388,10 +400,10 @@
 
 					<div class="col-md-2">
 						<div class="team-box text-center to-animate-2">
-							<div class="user"><img class="img-reponsive" src="images/person2.jpg" alt="Roger Garfield"></div>
-							<h3>Kevin Steve</h3>
+							<div class="user"><img class="img-reponsive" src="images/person2.jpg" alt="Chen Cheng"></div>
+							<h3>Cheng Chen</h3>
 							<span class="position">Co-Founder, Product Designer</span>
-							<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+							<p>Far far away, behind the word mountains</p>
 							<ul class="social-media">
 								<li><a href="#" class="facebook"><i class="icon-facebook"></i></a></li>
 								<li><a href="#" class="twitter"><i class="icon-twitter"></i></a></li>
@@ -413,9 +425,9 @@
 					<div class="col-md-12 section-heading text-center">
 						<h2 class="to-animate">Common Questions</h2>
 						<div class="row">
-							<div class="col-md-8 col-md-offset-2 subtext">
-								<h3 class="to-animate">Everything you need to know before you get started</h3>
-							</div>
+							<div class="col-md-4 col-md-offset-4 subtext">
+<!-- 								<h3 class="to-animate">Everything you need to know before you get started</h3>
+ -->							</div>
 						</div>
 					</div>
 				</div>
@@ -423,26 +435,30 @@
 					<div class="col-md-6">
 						<div class="box-faq to-animate-2">
 							<h3>What is GT rent?</h3>
-							<p>Along with increasing student population in Georgia Tech, students who prefer living off campus encounter accommodation problems. Rents, distances to school, living convenience, and neighborhood crime rates are main aspects concerning them.</p>
+							<p>Along with the increasing student population in Georgia Tech, those students who prefer living off campus may be confronted with an accommodation puzzle. Rents, distances to school, life convenience and crime rates are several major concerns in decision making. Thus in this project, we polish and integrate the data into a web application with the data visualization and analytics skills we learned in class, which aims to provide best local rental information and recommendation for Georgia Tech students in need. </p>
 						</div>
 						<div class="box-faq to-animate-2">
 							<h3>I have technical problem, who do I email? </h3>
 							<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
 						</div>
 						<div class="box-faq to-animate-2">
-							<h3>How do I use Bato features?</h3>
-							<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+							<h3>How do I use GTRent features?</h3>S
+							<p>Far far away, behind the word mountains</p>
 						</div>
 					</div>
 
 					<div class="col-md-6">
 						<div class="box-faq to-animate-2">
-							<h3>What language are available?</h3>
-							<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+							<h3>Why do you make this?</h3>
+							<p>This project is inspired by our painful experiences in searching for suitable accommodations as first-year students. Details about these rental properties’ locations, rents, neighborhoods and  residents’ reviews are scattered throughout several major data sources such as Google Maps, Yelp, and rental housings’ official websites, making the searching process tedious and difficult. On the other hand, some existing tools like Zillow and Trulia are unnecessarily complicated for GT students. Thus, our project aims to create an application that combines all necessary features and information in a more concise and dedicated way.</p>
 						</div>
 						<div class="box-faq to-animate-2">
-							<h3>Can I have a username that is already taken?</h3>
-							<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+							<h3>What is your innovations?</h3>
+							<ol>
+								<li>Generating crime or convenient scores of properties lack of data with kNN algorithm.</li>
+								<li>Clustering all rental properties with K-means algorithm and providing the users with recommendation of similar properties.</li>
+								<li>Building the web app on AWS based cloud server Heroku with runtime data management.</li>
+							</ol>
 						</div>
 						<div class="box-faq to-animate-2">
 							<h3>Is Union free?</h3>
