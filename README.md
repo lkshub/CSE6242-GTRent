@@ -5,3 +5,5 @@ We build it at a cloud server on Heroku.com. You can taste it  @ [url](http://gt
 The two folders here are gtrent2016-local and gtrent2016-heroku.
 The local file is the one we tested locally, in which case the core functions are not accessible without backend support.
 The heroku file is the one we are running on the server.
+
+Our motivation, research and implementation details could be found at the Final Report of the project.
