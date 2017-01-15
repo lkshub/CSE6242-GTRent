@@ -86,7 +86,7 @@ def nearby(request):
 
                 json_property = []
 
-                for check in property_list:
+                for check in property:
                         for id in zillow:
                                 if check.Place_ID == id.Place_ID:
                                         fplan = []
