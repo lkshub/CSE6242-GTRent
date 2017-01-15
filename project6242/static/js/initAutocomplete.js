@@ -310,6 +310,7 @@ var getFilters = function(){
 
               console.log("failed"); // provide a bit more info about the error to the console
         }
+      })
         clearMarker();
         setTimeout(function(){
           addContent($("#content"),queryResult,[]);
