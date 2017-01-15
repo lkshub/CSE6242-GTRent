@@ -79,8 +79,8 @@ def nearby(request):
                 zipCode = request.GET.get('zipcode')
         
                 
-                # return json data
-                property = Property.objects.filter(Zipcode = zipCode)
+                
+                property = Property.objects.all()
 
                 zillow = Price.objects.all()
 
