@@ -75,7 +75,7 @@ function initAutocomplete() {
         title: place.name,
         position: place.geometry.location
       }));
-      Console.log(place.address_components[place.address_components.length-1].long_name)
+      console.log(place.address_components[place.address_components.length-1].long_name)
       if (place.geometry.viewport) {
         // Only geocodes have viewport.
         bounds.union(place.geometry.viewport);
@@ -298,24 +298,6 @@ var getFilters = function(){
 
           // handle a successful response
           success : function(json) {
-              //$('#post-text').val(''); // remove the value from the input
-              json.sort(function(a,b){ 
-                var aScore = a["crimeScore"]
-                var bScore = b["crimeScore"]
-                if (filter["Gas"]){
-                  aScore+=a["gasScore"];
-                  bScore+=b["gasScore"];
-                }
-                if (filter["Entertainment"]){
-                  aScore+=a["entertainmentScore"];
-                  bScore+=b["entertainmentScore"];
-                }
-                if (filter["Food"]){
-                  aScore+=a["foodScore"];
-                  bScore+=b["foodScore"];
-                }
-                return bScore-aScore;})
-              //console.log(json); // log the returned json to the console
               console.log("success"); // another sanity check
               queryResult=json;
           },
