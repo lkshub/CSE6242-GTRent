@@ -75,7 +75,7 @@ function initAutocomplete() {
         title: place.name,
         position: place.geometry.location
       }));
-      searchForNearby(place.address_components[place.address_components.length-1].long_name))
+      searchForNearby(place.address_components[place.address_components.length-1].long_name)
       if (place.geometry.viewport) {
         // Only geocodes have viewport.
         bounds.union(place.geometry.viewport);
@@ -326,7 +326,7 @@ var getFilters = function(){
     console.log("create post is working!") // sanity check
    // var result = [];
       $.ajax({
-          url : "/gtrent/filter", // the endpoint
+          url : "/gtrent", // the endpoint
           type : "GET", // http method
 	        dataType: "json",
           data : filter, // data sent with the post request
