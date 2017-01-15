@@ -80,18 +80,13 @@ def nearby(request):
         
                 
                 # return json data
-                property = Property.objects.filter(Zipcode = zipCode)
+                #property = Property.objects.filter(Zipcode = zipCode)
 
-                property_list = []
-
-                for entry in property:
-                        property_list.append(entry)
-
-                zillow = Price.objects
+                #zillow = Price.objects
 
                 json_property = []
-
-                for check in property_list:
+'''
+                for check in property:
                         for id in zillow:
                                 if check.Place_ID == id.Place_ID:
                                         fplan = []
@@ -120,7 +115,7 @@ def nearby(request):
                                                               "averageScore":80,
                                                               "cluster":check.cluster})
                                         break;
-                
+ '''               
                 return HttpResponse(json.dumps(json_property), content_type='application/json')
 
         return render(request, 'gtrent/index.html')
