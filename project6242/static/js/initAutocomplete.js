@@ -75,7 +75,7 @@ function initAutocomplete() {
         title: place.name,
         position: place.geometry.location
       }));
-
+      Console.log(place.address_components[place.address_components.length-1].long_name)
       if (place.geometry.viewport) {
         // Only geocodes have viewport.
         bounds.union(place.geometry.viewport);
@@ -288,7 +288,71 @@ var getFilters = function(){
     })
     mapCenter = new google.maps.LatLng(latsum/dataArray.length,lonsum/dataArray.length);
   }
+  var searchForNearby = function(place){
+      console.log("searching for nearby properties!") // sanity check
+      $.ajax({
+          url : "/gtrent", // the endpoint
+          type : "GET", // http method
+          dataType: "json",
+          data : "", // data sent with the post request
 
+          // handle a successful response
+          success : function(json) {
+              //$('#post-text').val(''); // remove the value from the input
+              json.sort(function(a,b){ 
+                var aScore = a["crimeScore"]
+                var bScore = b["crimeScore"]
+                if (filter["Gas"]){
+                  aScore+=a["gasScore"];
+                  bScore+=b["gasScore"];
+                }
+                if (filter["Entertainment"]){
+                  aScore+=a["entertainmentScore"];
+                  bScore+=b["entertainmentScore"];
+                }
+                if (filter["Food"]){
+                  aScore+=a["foodScore"];
+                  bScore+=b["foodScore"];
+                }
+                return bScore-aScore;})
+              //console.log(json); // log the returned json to the console
+              console.log("success"); // another sanity check
+              queryResult=json;
+          },
+          // handle a non-successful response
+          error : function(xhr,errmsg,err) {
+              //$('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
+              //    " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+              queryResult=testQueryRes;
+              queryResult.sort(function(a,b){ 
+                var aScore = a["crimeScore"]
+                var bScore = b["crimeScore"]
+                if (filter["Gas"]){
+                  aScore+=a["gasScore"];
+                  bScore+=b["gasScore"];
+                  console.log("gas!")
+                }
+                if (filter["Entertainment"]){
+                  aScore+=a["entertainmentScore"];
+                  bScore+=b["entertainmentScore"];
+                  console.log("en!")
+
+                }
+                if (filter["Food"]){
+                  aScore+=a["foodScore"];
+                  bScore+=b["foodScore"];
+                  console.log("food!")
+
+                }
+                //console.log(aScore,bScore)
+                return bScore-aScore;})
+                //console.log(testQueryRes);
+
+              console.log("failed"); // provide a bit more info about the error to the console
+        }
+    });
+    //return result;
+  }
   var searchForDetail = function(filter){ //The input is a json file
     console.log("create post is working!") // sanity check
    // var result = [];
