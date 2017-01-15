@@ -80,12 +80,41 @@ def nearby(request):
         
                 
                 # return json data
-                #property = Property.objects.filter(Zipcode = zipCode)
+                property = Property.objects.filter(Zipcode = zipCode)
 
-                #zillow = Price.objects
+                zillow = Price.objects.all()
 
                 json_property = []
 
+                for check in property:
+                        for id in zillow:
+                                if check.Place_ID == id.Place_ID:
+                                        fplan = []
+                                        byID = Price.objects.filter(Place_ID = check.Place_ID)
+                                        for oneplan in byID:
+                                                fplan.append({"bed":oneplan.Bedroom,
+                                                              "bath":float(oneplan.Bathroom),
+                                                              "price":float(oneplan.BasePrice),
+                                                              "sqft":float(oneplan.SquareFeet)})
+                                        json_property.append({"commutingStyle":commutingStyle,
+                                                              "drivingTime":float(check.drivingTime),
+                                                              "walkingTime":float(check.walkingTime),
+                                                              "transitTime":float(check.transitTime),
+                                                              "name":check.Estate_Name,
+                                                              "address":check.Address,
+                                                              "lat":float(check.Altitude),
+                                                              "lon":float(check.Longtitude),
+                                                              "webSite":check.Website,
+                                                              "zipCode":check.Zipcode,
+                                                              "floorPlans":fplan,
+                                                              "propertyType":check.Type,
+                                                              "crimeScore":float(check.Crime_Grade),
+                                                              "foodScore":float(check.Food_Grade),
+                                                              "gasScore":float(check.Gas_Grade),
+                                                              "entertainmentScore":float(check.Entertainment_Grade),
+                                                              "averageScore":80,
+                                                              "cluster":check.cluster})
+                                        break;           
                 return HttpResponse(json.dumps(json_property), content_type='application/json')
 
         return render(request, 'gtrent/index.html')
