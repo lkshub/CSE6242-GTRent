@@ -34,7 +34,7 @@ function initAutocomplete() {
 
   // Create the search box and link it to the UI element.
   var input = document.getElementById('pac-input');
-  var searchBox = new google.maps.places.SearchBox(input);
+  var searchBox = new google.maps.places.Autocomplete(input);
   // map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
   // Bias the SearchBox results towards current map's viewport.
@@ -45,7 +45,7 @@ function initAutocomplete() {
   // Listen for the event fired when the user selects a prediction and retrieve
   // more details for that place.
   searchBox.addListener('places_changed', function() {
-    var places = searchBox.getPlaces();
+    var places = searchBox.getPlace();
 
     if (places.length == 0) {
       return;
@@ -75,7 +75,7 @@ function initAutocomplete() {
         title: place.name,
         position: place.geometry.location
       }));
-      console.log(place.address_components[place.address_components.length-1].long_name)
+      searchForNearby(place.address_components[place.address_components.length-1].long_name))
       if (place.geometry.viewport) {
         // Only geocodes have viewport.
         bounds.union(place.geometry.viewport);
@@ -332,6 +332,15 @@ var getFilters = function(){
 
               console.log("failed"); // provide a bit more info about the error to the console
         }
+        clearMarker();
+        setTimeout(function(){
+          addContent($("#content"),queryResult,[]);
+          setMapOnAll(map);
+          map.panTo(mapCenter);
+          if ($('#content').hasClass('hidden2')){
+            showContent();
+          }
+        },1000);
     });
     //return result;
   }
