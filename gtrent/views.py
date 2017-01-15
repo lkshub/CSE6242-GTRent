@@ -81,7 +81,7 @@ def nearby(request):
                 
                 # return json data
                 property = Property.objects.filter(Zipcode = zipCode)
-                
+                json_property = []
                 for check in property:
                         for id in zillow:
                                 if check.Place_ID == id.Place_ID:
