@@ -300,6 +300,15 @@ var getFilters = function(){
           success : function(json) {
               console.log("success"); // another sanity check
               queryResult=json;
+              clearMarker();
+              setTimeout(function(){
+                addContent($("#content"),queryResult,[]);
+                setMapOnAll(map);
+                map.panTo(mapCenter);
+                if ($('#content').hasClass('hidden2')){
+                  showContent();
+                }
+              },1000);
           },
           // handle a non-successful response
           error : function(xhr,errmsg,err) {
@@ -310,16 +319,6 @@ var getFilters = function(){
 
               console.log("failed"); // provide a bit more info about the error to the console
         }
-      })
-        clearMarker();
-        setTimeout(function(){
-          addContent($("#content"),queryResult,[]);
-          setMapOnAll(map);
-          map.panTo(mapCenter);
-          if ($('#content').hasClass('hidden2')){
-            showContent();
-          }
-        },1000);
     });
     //return result;
   }
