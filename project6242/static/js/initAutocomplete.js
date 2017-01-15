@@ -288,13 +288,13 @@ var getFilters = function(){
     })
     mapCenter = new google.maps.LatLng(latsum/dataArray.length,lonsum/dataArray.length);
   }
-  var searchForNearby = function(place){
+  var searchForNearby = function(zip){
       console.log("searching for nearby properties!") // sanity check
       $.ajax({
-          url : "/gtrent", // the endpoint
+          url : "/gtrent/nearby", // the endpoint
           type : "GET", // http method
           dataType: "json",
-          data : "", // data sent with the post request
+          data : {"zipcode":zip}, // data sent with the post request
 
           // handle a successful response
           success : function(json) {
@@ -306,28 +306,6 @@ var getFilters = function(){
               //$('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
               //    " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
               queryResult=testQueryRes;
-              queryResult.sort(function(a,b){ 
-                var aScore = a["crimeScore"]
-                var bScore = b["crimeScore"]
-                if (filter["Gas"]){
-                  aScore+=a["gasScore"];
-                  bScore+=b["gasScore"];
-                  console.log("gas!")
-                }
-                if (filter["Entertainment"]){
-                  aScore+=a["entertainmentScore"];
-                  bScore+=b["entertainmentScore"];
-                  console.log("en!")
-
-                }
-                if (filter["Food"]){
-                  aScore+=a["foodScore"];
-                  bScore+=b["foodScore"];
-                  console.log("food!")
-
-                }
-                //console.log(aScore,bScore)
-                return bScore-aScore;})
                 //console.log(testQueryRes);
 
               console.log("failed"); // provide a bit more info about the error to the console
@@ -348,7 +326,7 @@ var getFilters = function(){
     console.log("create post is working!") // sanity check
    // var result = [];
       $.ajax({
-          url : "/gtrent", // the endpoint
+          url : "/gtrent/filter", // the endpoint
           type : "GET", // http method
 	        dataType: "json",
           data : filter, // data sent with the post request
