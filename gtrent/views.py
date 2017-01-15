@@ -76,13 +76,22 @@ def index(request):
 def nearby(request):
         if request.is_ajax():
                 # get data from json
-                zipCode= request.GET.get('zipcode')
+                zipCode = request.GET.get('zipcode')
         
                 
                 # return json data
                 property = Property.objects.filter(Zipcode = zipCode)
+
+                property_list = []
+
+                for entry in property:
+                        property_list.append(entry)
+
+                zillow = Price.objects
+
                 json_property = []
-                for check in property:
+
+                for check in property_list:
                         for id in zillow:
                                 if check.Place_ID == id.Place_ID:
                                         fplan = []
