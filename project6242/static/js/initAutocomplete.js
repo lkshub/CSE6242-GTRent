@@ -300,6 +300,7 @@ var getFilters = function(){
           success : function(json) {
               console.log("success"); // another sanity check
               queryResult=json;
+              console.log(json);
               clearMarker();
               setTimeout(function(){
                 addContent($("#content"),queryResult,[]);
