@@ -45,8 +45,8 @@ function initAutocomplete() {
   // Listen for the event fired when the user selects a prediction and retrieve
   // more details for that place.
   searchBox.addListener('places_changed', function() {
-    var places = searchBox.getPlace();
-
+    var places = searchBox.getPlaces();
+    console.log(places)
     if (places.length == 0) {
       return;
     }
