@@ -1363,5 +1363,7 @@ h1, h2, h3, h4, h5, h6 {
 .owl-carousel .owl-controls .owl-dot.active span {
   background: transparent;
   border: 2px solid #1fb5f6; }
-
+.container{
+  height:auto;
+}
 /*# sourceMappingURL=style.css.map */
