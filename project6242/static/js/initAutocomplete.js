@@ -235,9 +235,10 @@ var getFilters = function(){
         var idStr = "content-"+idIndex.toString();
         var lowPrice=100000;
         data["floorPlans"].forEach(function(plan){
-        if((plan["bed"]==filter["bed"])&&(plan["bath"]==filter["bath"])){
-          if (lowPrice>plan["price"]){lowPrice=plan["price"]}
-        }});
+          if(((filter["bed"]==-1)&&(filter["bath"]==-1))||((plan["bed"]==filter["bed"])&&(plan["bath"]==filter["bath"]))){
+            if (lowPrice>plan["price"]){lowPrice=plan["price"]}
+          }
+        });
         var infowindow = new google.maps.InfoWindow({
           content: "<div style='max-width:200px;height:auto;overflow:hidden;'>"+"<h4 style='font-size:14px;line-height:100%;margin:2px'>"+data["name"]+"</h4>"+"<p style='margin:0px;font-size:12px'>$"+lowPrice.toString()+"+</p></div>",
         });
@@ -272,7 +273,7 @@ var getFilters = function(){
       var address = $('<p>').text(data["address"]+", "+data["zipCode"]);
       var priceTable=$("<table>");
       data["floorPlans"].forEach(function(plan){
-        if((plan["bed"]==filter["bed"])&&(plan["bath"]==filter["bath"])){
+        if(((plan["bed"]==filter["bed"])&&(plan["bath"]==filter["bath"]))||((filter["bed"]==-1)&&(filter["bath"]==-1))){
           var list = $("<tr>");
           $('<th>').text(plan["bed"]+" Bedrooms").appendTo(list);
           $('<th>').text(plan["bath"]+" Bath").appendTo(list);
@@ -289,6 +290,10 @@ var getFilters = function(){
     mapCenter = new google.maps.LatLng(latsum/dataArray.length,lonsum/dataArray.length);
   }
   var searchForNearby = function(zip){
+      filter = {
+      "bed":-1,
+      "bath":-1
+    };
       console.log("searching for nearby properties!") // sanity check
       $.ajax({
           url : "/gtrent/nearby", // the endpoint
