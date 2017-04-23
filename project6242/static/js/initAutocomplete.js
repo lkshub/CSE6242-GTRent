@@ -498,7 +498,7 @@ var showDetailWin=function(contentid){
   })
   var detailDiv = $("<div>").css({"padding-left":"20px","padding-bottom":"20px","padding-top":"10px","position":"absolute","top":"20px","left":"0px","width":"400px","height":"95%","overflow-y":"scroll","overflow-x":"hidden","word-wrap": "break-word" ,"word-break": "normal" });
   detailDiv.append(header);
-  addContent(recommendDiv,recommendData,indexChange);
+  addContent(recommendDiv,recommendData,indexChange, function(){});
   var address1 =$('<h3>').text(data["address"]+", "+data["zipCode"]);
   detailDiv.append(address1);
   //var address2 =$('<h3>').text(data["zipCode"]+", GA");
