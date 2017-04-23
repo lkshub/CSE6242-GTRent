@@ -198,7 +198,7 @@ var getFilters = function(){
     return filter;
   }
 
-  var addContent = function(content,dataArray,indexChange){
+  var addContent = function(content,dataArray,indexChange, callback){
     var latsum=0;
     var lonsum=0;
     var numOfRecord = dataArray.length;
@@ -288,6 +288,8 @@ var getFilters = function(){
       content.append(thisArticle);
     })
     mapCenter = new google.maps.LatLng(latsum/dataArray.length,lonsum/dataArray.length);
+
+    callback();
   }
   var searchForNearby = function(zip){
       filter = {
@@ -307,14 +309,13 @@ var getFilters = function(){
               queryResult=json;
               //console.log(json);
               clearMarker();
-              setTimeout(function(){
-                addContent($("#content"),queryResult,[]);
+              addContent($("#content"),queryResult,[], function(){
                 setMapOnAll(map);
                 map.panTo(mapCenter);
                 if ($('#content').hasClass('hidden2')){
                   showContent();
                 }
-              },1000);
+              });
           },
           // handle a non-successful response
           error : function(xhr,errmsg,err) {
@@ -328,8 +329,8 @@ var getFilters = function(){
     });
     //return result;
   }
-  var searchForDetail = function(filter){ //The input is a json file
-    console.log("create post is working!") // sanity check
+  var searchForDetail = function(filter, callback){ //The input is a json file
+    console.log("Applying the filter!") // sanity check
    // var result = [];
       $.ajax({
           url : "/gtrent", // the endpoint
@@ -392,7 +393,7 @@ var getFilters = function(){
               console.log("failed"); // provide a bit more info about the error to the console
         }
     });
-    //return result;
+    callback();
   }
   var hideContent=function(){
 
@@ -433,16 +434,16 @@ $('#apply').click(function(){
   $("#filterTag img").removeClass('clicked')
 
   filter=getFilters();
-  searchForDetail(filter);
   clearMarker();
-  setTimeout(function(){
-    addContent($("#content"),queryResult,[]);
-    setMapOnAll(map);
-    map.panTo(mapCenter);
-    if ($('#content').hasClass('hidden2')){
-      showContent();
-    }
-  },1000);
+  searchForDetail(filter, function(){
+    addContent($("#content"),queryResult,[], function(){
+      setMapOnAll(map);
+      map.panTo(mapCenter);
+      if ($('#content').hasClass('hidden2')){
+        showContent();
+      }
+    });
+  });
   //$("#content").children("article").remove();
   // var filter  = getFilters();
  // waitForQuery($("#content"),queryResult);

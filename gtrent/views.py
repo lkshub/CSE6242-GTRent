@@ -32,7 +32,6 @@ def index(request):
                 property_list = []
                 for check in property:
                         if check.Type in typeincluded:
-                                average_score = (float(check.Food_Grade)*lifestyle[0] + float(check.Gas_Grade)*lifestyle[1] + float(check.Entertainment_Grade)*lifestyle[2])/float(lifestyle[0]+lifestyle[1]+lifestyle[2])
                                 property_list.append(check)
                 
                 
@@ -64,7 +63,7 @@ def index(request):
                                                               "foodScore":float(check.Food_Grade),
                                                               "gasScore":float(check.Gas_Grade),
                                                               "entertainmentScore":float(check.Entertainment_Grade),
-                                                              "averageScore":80,
+                                                              "averageScore":(float(check.Food_Grade)*lifestyle[0] + float(check.Gas_Grade)*lifestyle[1] + float(check.Entertainment_Grade)*lifestyle[2])/float(lifestyle[0]+lifestyle[1]+lifestyle[2]),
                                                               "cluster":check.cluster})
                                         break;
                 
