@@ -227,7 +227,7 @@ var getFilters = function(){
     var secondBar=$("<div id='resultNum'>").css({'width':'100%','height':'20px','border-bottom':'1px solid lightgrey'});
     $("<p>").css({'font-size':'14px','text-align':'left',"margin-left":'10px'}).text(topText).prependTo(secondBar);
     secondBar.appendTo(content);
-      dataArray.forEach(function(data,index){
+    dataArray.forEach(function(data, index, array){
       latsum=latsum+data["lat"];
       lonsum=lonsum+data["lon"];
       if(indexChange.length==0){
@@ -286,17 +286,20 @@ var getFilters = function(){
       thisArticle.prepend(address);
       thisArticle.prepend(name);
       content.append(thisArticle);
+
+      if(index + 1 == array.length) {
+        callback();
+      }
     })
     mapCenter = new google.maps.LatLng(latsum/dataArray.length,lonsum/dataArray.length);
 
-    callback();
   }
   var searchForNearby = function(zip){
       filter = {
       "bed":-1,
       "bath":-1
     };
-      console.log("searching for nearby properties!") // sanity check
+      console.log("searching for nearby properties around Zipcode " + zip) // sanity check
       $.ajax({
           url : "/gtrent/nearby", // the endpoint
           type : "GET", // http method
@@ -309,7 +312,7 @@ var getFilters = function(){
               queryResult=json;
               //console.log(json);
               clearMarker();
-              addContent($("#content"),queryResult,[], function(){
+              addContent($("#content"),json,[], function(){
                 setMapOnAll(map);
                 map.panTo(mapCenter);
                 if ($('#content').hasClass('hidden2')){
@@ -360,6 +363,7 @@ var getFilters = function(){
               //console.log(json); // log the returned json to the console
               console.log("success"); // another sanity check
               queryResult=json;
+              callback(json);
           },
           // handle a non-successful response
           error : function(xhr,errmsg,err) {
@@ -393,7 +397,7 @@ var getFilters = function(){
               console.log("failed"); // provide a bit more info about the error to the console
         }
     });
-    callback();
+    
   }
   var hideContent=function(){
 
@@ -435,8 +439,8 @@ $('#apply').click(function(){
 
   filter=getFilters();
   clearMarker();
-  searchForDetail(filter, function(){
-    addContent($("#content"),queryResult,[], function(){
+  searchForDetail(filter, function(result){
+    addContent($("#content"),result,[], function(){
       setMapOnAll(map);
       map.panTo(mapCenter);
       if ($('#content').hasClass('hidden2')){
