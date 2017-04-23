@@ -288,10 +288,11 @@ var getFilters = function(){
       content.append(thisArticle);
 
       if(index + 1 == array.length) {
+        mapCenter = new google.maps.LatLng(latsum/array.length,lonsum/array.length);
+        console.log("has gone throught all the result");
         callback();
       }
     })
-    mapCenter = new google.maps.LatLng(latsum/dataArray.length,lonsum/dataArray.length);
 
   }
   var searchForNearby = function(zip){
