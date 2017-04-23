@@ -199,6 +199,7 @@ var getFilters = function(){
   }
 
   var addContent = function(content,dataArray,indexChange, callback){
+    content.empty();
     var latsum=0;
     var lonsum=0;
     var numOfRecord = dataArray.length;
